@@ -1,0 +1,5 @@
+aiohttp
+aiosqlite
+charset-normalizer
+trafilatura
+langdetect
