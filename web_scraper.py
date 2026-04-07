@@ -6,6 +6,7 @@ from charset_normalizer import from_bytes
 import json
 import uuid
 import aiosqlite
+import os
 import random
 from urllib.parse import urlparse
 from typing import List, Dict, Optional
@@ -32,9 +33,11 @@ class WaybackScraperPipeline:
 
     async def init_db(self):
         """Abre o banco, cria a tabela (se não existir) e carrega hashes."""
+
+        os.makedirs("data", exist_ok=True)
         self.db = await aiosqlite.connect(DB_PATH)
 
-        with open("data/schema.sql", "r", encoding="utf-8") as f:
+        with open("schema.sql", "r", encoding="utf-8") as f:
             schema = f.read()
 
         await self.db.executescript(schema)
@@ -331,7 +334,7 @@ if __name__ == "__main__":
                         "www1.folha.uol.com.br",
                         "cartacapital.com.br",
                         "oglobo.globo.com",
-                        "correiobraziliense.com.br"
+                        "correiobraziliense.com.br",
                         "nexojornal.com.br",
                         "brasil.elpais.com",
                       ]
