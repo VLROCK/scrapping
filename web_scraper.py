@@ -298,7 +298,7 @@ class WaybackScraperPipeline:
             "text_id": str(uuid.uuid4()),      # Identificador único
             "content": texto_limpo,            # Conteúdo bruto limpo
             "label": 0,                        # 0 para humano
-            "broad_area": None,                # A ser preenchido pelo Maritaca depois
+            "broad_area": "Jornalístico",                # A ser preenchido pelo Maritaca depois
             "specific_theme": None,            # A ser preenchido pelo Maritaca depois
             "char_count": char_count,
             "word_count": word_count,

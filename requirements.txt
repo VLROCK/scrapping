@@ -3,3 +3,5 @@ aiosqlite
 charset-normalizer
 trafilatura
 langdetect
+pymupdf
+pandas
