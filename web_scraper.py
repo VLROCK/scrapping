@@ -72,27 +72,53 @@ class WaybackScraperPipeline:
         await self.db.commit()
 
     async def get_cdx_snapshots(self, session: aiohttp.ClientSession, domain: str) -> List[Dict]:
-        """Consulta a API do CDX para descobrir URLs pré-2018 com status 200."""
         cdx_url = "http://web.archive.org/cdx/search/cdx"
+        
+        ano_alvo = random.randint(2006, 2017)
+
         params = {
             "url": f"{domain}/*",
             "output": "json",
-            "from": "2006",
-            "to": "2017",
+            "from": str(ano_alvo),
+            "to": str(ano_alvo),
             "fl": "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
-            "collapse": "urlkey" # Pega apenas um snapshot por URL exata para evitar duplicatas do mesmo dia
+            "collapse": "urlkey",
+            "limit": "2000"
         }
-        
-        try:
-            async with session.get(cdx_url, params=params) as response:
-                if response.status == 200:
-                    data = await response.json()
-                    if len(data) > 1:
-                        keys = data[0]
-                        return [dict(zip(keys, row)) for row in data[1:]]
-        except Exception as e:
-            print(f"[Erro CDX] Falha ao buscar {domain}: {e}")
+
+        for attempt in range(3):
+            try:
+                timeout = aiohttp.ClientTimeout(total=45)
+
+                async with session.get(cdx_url, params=params, timeout=timeout) as response:
+                    if response.status == 200:
+                        
+                        text = await response.text()
+
+                        if not text.strip():
+                            return []
+
+                        try:
+                            data = json.loads(text)
+                        except json.JSONDecodeError:
+                            print(f"[Erro CDX] JSON inválido para {domain}")
+                            return []
+
+                        if not data or not isinstance(data, list):
+                            return []
+
+                        if len(data) > 1:
+                            keys = data[0]
+                            return [dict(zip(keys, row)) for row in data[1:]]
+
+                        return []
+
+            except Exception:
+                print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain}")
+                await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
+
+        print(f"[Erro CDX] Falha definitiva para {domain} no ano {ano_alvo}")
         return []
 
     async def fetch_and_process_html(self, session: aiohttp.ClientSession, snapshot: Dict):
