@@ -73,53 +73,49 @@ class WaybackScraperPipeline:
 
     async def get_cdx_snapshots(self, session: aiohttp.ClientSession, domain: str) -> List[Dict]:
         cdx_url = "http://web.archive.org/cdx/search/cdx"
-        
-        ano_alvo = random.randint(2006, 2017)
+        todos_snapshots = []
 
-        params = {
-            "url": f"{domain}/*",
-            "output": "json",
-            "from": str(ano_alvo),
-            "to": str(ano_alvo),
-            "fl": "timestamp,original,statuscode,mimetype",
-            "filter": ["statuscode:200", "mimetype:text/html"],
-            "collapse": "urlkey",
-            "limit": "2000"
-        }
+        for ano in range(2006, 2018):  # 2006 até 2017 inclusive
+            params = {
+                "url": f"{domain}/*",
+                "output": "json",
+                "from": str(ano),
+                "to": str(ano),
+                "fl": "timestamp,original,statuscode,mimetype",
+                "filter": ["statuscode:200", "mimetype:text/html"],
+                "collapse": "urlkey",
+                "limit": "200"  # 200 por ano × 12 anos = até 2400 por domínio
+            }
 
-        for attempt in range(3):
-            try:
-                timeout = aiohttp.ClientTimeout(total=45)
+            for attempt in range(3):
+                try:
+                    timeout = aiohttp.ClientTimeout(total=45)
+                    async with session.get(cdx_url, params=params, timeout=timeout) as response:
+                        if response.status == 200:
+                            text = await response.text()
+                            if not text.strip():
+                                break
 
-                async with session.get(cdx_url, params=params, timeout=timeout) as response:
-                    if response.status == 200:
-                        
-                        text = await response.text()
+                            try:
+                                data = json.loads(text)
+                            except json.JSONDecodeError:
+                                print(f"[Erro CDX] JSON inválido para {domain} ({ano})")
+                                break
 
-                        if not text.strip():
-                            return []
+                            if data and isinstance(data, list) and len(data) > 1:
+                                keys = data[0]
+                                snapshots_ano = [dict(zip(keys, row)) for row in data[1:]]
+                                todos_snapshots.extend(snapshots_ano)
+                                print(f"  {domain} ({ano}): {len(snapshots_ano)} snapshots")
+                            break  # sucesso, sai do retry
 
-                        try:
-                            data = json.loads(text)
-                        except json.JSONDecodeError:
-                            print(f"[Erro CDX] JSON inválido para {domain}")
-                            return []
+                except Exception:
+                    print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain} ({ano})")
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
 
-                        if not data or not isinstance(data, list):
-                            return []
+            await asyncio.sleep(0.5)  # pausa entre anos para não sobrecarregar o CDX
 
-                        if len(data) > 1:
-                            keys = data[0]
-                            return [dict(zip(keys, row)) for row in data[1:]]
-
-                        return []
-
-            except Exception:
-                print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain}")
-                await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
-
-        print(f"[Erro CDX] Falha definitiva para {domain} no ano {ano_alvo}")
-        return []
+        return todos_snapshots
 
     async def fetch_and_process_html(self, session: aiohttp.ClientSession, snapshot: Dict):
         """Baixa o HTML bruto com Retry e Backoff Exponencial, e processa o texto."""
@@ -235,11 +231,11 @@ class WaybackScraperPipeline:
 
         return texto.strip()
     
-    async def process_text(self, html_bytes: bytes, original_url: str, timestamp: str):
+    async def process_text(self, html_str: str, original_url: str, timestamp: str):
         """Extrai, limpa, filtra e deduplica o conteúdo."""
         # 1. Extração Polimórfica: Ignora menus, rodapés e pega o texto principal
         texto_limpo = trafilatura.extract(
-            html_bytes, 
+            html_str, 
             url=original_url,
             target_language="pt",
             include_comments=False, 
@@ -357,7 +353,6 @@ if __name__ == "__main__":
                         "revistagalileu.globo.com",
                         "exame.com",
                         "folha.uol.com.br",
-                        "www1.folha.uol.com.br",
                         "cartacapital.com.br",
                         "oglobo.globo.com",
                         "correiobraziliense.com.br",
