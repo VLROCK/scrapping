@@ -5,6 +5,9 @@ on:
     - cron: '0 9 * * *'  # TODO DIA às 09:00 UTC
   workflow_dispatch:      # botão manual
 
+permissions:
+  contents: write
+
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
