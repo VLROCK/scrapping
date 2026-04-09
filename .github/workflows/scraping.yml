@@ -2,7 +2,7 @@ name: Web Scraping Pipeline
 
 on:
   schedule:
-    - cron: '0 9 * * *'  # TODO DIA às 09:00 UTC
+    - cron: '0 7 * * *'  # TODO DIA às 09:00 UTC
   workflow_dispatch:      # botão manual
 
 permissions:

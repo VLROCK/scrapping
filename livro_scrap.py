@@ -1,84 +1,30 @@
 import asyncio
-import re
 import aiohttp
-import hashlib
 import uuid
+import hashlib
 import aiosqlite
 import os
-import fitz
+import zipfile
 import io
-import random
-import pandas as pd
-from urllib.parse import urlparse
-from typing import List, Dict, Optional, Tuple
-from charset_normalizer import from_bytes
+import re
+from bs4 import BeautifulSoup
 import trafilatura
 from langdetect import detect, DetectorFactory
-from langdetect.lang_detect_exception import LangDetectException
 
 DetectorFactory.seed = 0
 
-# ── Caminhos ────────────────────────────────────────────────────────────────
-DB_PATH        = "data/datasetlivros.db"
-SCHEMA_PATH    = "schema.sql"
-PPORTAL_DIR    = "pportal"          # pasta com os CSVs do PPortal
+# ── Configurações ────────────────────────────────────────────────────────────
+DB_PATH = "data/dataset_livro.db"
+SCHEMA_PATH = "schema.sql"
+BASE_SITEMAP = "https://projectoadamastor.org/post-sitemap.xml" # Mapa oculto com todos os livros
 
-# ── Mapeamento de gênero BLPL → broad_area / specific_theme do dataset ──────
-# Mapeia work_genre nativo do BLPL para os campos do schema da IC
-BLPL_GENRE_MAP = {
-    "Romance ou novela":                   ("Literária", "Romance"),
-    "Poemas":                              ("Literária", "Poesia"),
-    "Contos":                              ("Literária", "Contos"),
-    "Teatro":                              ("Literária", "Drama"),
-    "Crônicas ou artigos de jornal":       ("Literária", "Crônicas"),
-    "Biografia":                           ("Literária", "Biografia"),
-    "Memórias":                            ("Literária", "Biografia"),
-    "Ensaio, estudo, polêmica":            ("Literária", "Ensaio"),
-    "Literatura informativa e de viagens": ("Literária", "Narrativas de viagem"),
-    "Crítica, teoria ou história literária": ("Literária", "Outros"),
-    "Tradução":                            ("Literária", "Outros"),
-    "Discurso, sermão ou oração":          ("Literária", "Outros"),
-    "Outros":                              ("Literária", "Outros"),
-    "Não identificado":                    ("Literária", "Outros"),
-}
+class AdamastorScraperPipeline:
+    def __init__(self, max_concurrent: int = 5):
+        self.semaphore = asyncio.Semaphore(max_concurrent)
+        self.seen_hashes = set()
+        self.db = None
 
-# Mapeamento de gênero Goodreads → broad_area / specific_theme
-GOODREADS_GENRE_MAP = {
-    "Classics":       ("Literária", "Romance"),
-    "Literature":     ("Literária", "Outros"),
-    "Romance":        ("Literária", "Romance"),
-    "Short-stories":  ("Literária", "Contos"),
-    "Poetry":         ("Literária", "Poesia"),
-    "Fantasy":        ("Literária", "Fantasia"),
-    "History":        ("Literária", "Literatura histórica"),
-    "Drama":          ("Literária", "Drama"),
-    "Novels":         ("Literária", "Romance"),
-    "Philosophy":     ("Literária", "Literatura filosófica"),
-    "Plays":          ("Literária", "Drama"),
-    "Historical":     ("Literária", "Literatura histórica"),
-    "Biography":      ("Literária", "Biografia"),
-    "Mystery":        ("Literária", "Misterio"),
-    "Thriller":       ("Literária", "Misterio"),
-    "Horror":         ("Literária", "Terror"),
-    "Science-fiction":("Literária", "Ficção científica"),
-    "Adventure":      ("Literária", "Aventuras"),
-    "Children":       ("Literária", "Literatura infantil"),
-}
-
-
-# ────────────────────────────────────────────────────────────────────────────
-
-class BookScraperPipeline:
-
-    def __init__(self, max_concurrent: int = 5, min_year: Optional[int] = None):
-        self.semaphore        = asyncio.Semaphore(max_concurrent)
-        self.seen_hashes: set = set()
-        self.min_year         = min_year  # None = sem filtro de ano
-        self.db               = None
-        self.catalog: List[Dict] = []     # lista montada pelos CSVs
-
-    # ── Banco de dados ───────────────────────────────────────────────────────
-
+    # ── Infraestrutura do Banco ──────────────────────────────────────────────
     async def init_db(self):
         os.makedirs("data", exist_ok=True)
         self.db = await aiosqlite.connect(DB_PATH)
@@ -91,314 +37,231 @@ class BookScraperPipeline:
         print(f"[DB] {len(self.seen_hashes)} textos já existentes carregados.")
 
     async def close_db(self):
-        if self.db:
-            await self.db.close()
+        if self.db: await self.db.close()
 
     async def save_record(self, record: dict):
         await self.db.execute(
             """INSERT OR IGNORE INTO texts
                (text_id, content, label, broad_area, specific_theme,
-                char_count, word_count, size_category, creation_date,
-                source_url, source_name, content_hash)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                char_count, word_count, size_category, source_url, source_name, content_hash)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
             (record["text_id"], record["content"], record["label"],
-             record["broad_area"], record["specific_theme"],
-             record["char_count"], record["word_count"],
-             record["size_category"], record["creation_date"],
-             record["source_url"], record["source_name"],
-             record["content_hash"]),
+             record["broad_area"], record["specific_theme"], record["char_count"],
+             record["word_count"], record["size_category"], record["source_url"],
+             record["source_name"], record["content_hash"])
         )
         await self.db.commit()
 
-    # ── Construção do catálogo ───────────────────────────────────────────────
-
-    def build_catalog(self) -> List[Dict]:
-        """
-        Junta os CSVs do PPortal e retorna uma lista de dicts com:
-        original_id, title, author, year, download_link,
-        broad_area, specific_theme
-        """
-        print("[Catálogo] Carregando CSVs...")
-
-        blpl     = pd.read_csv(f"{PPORTAL_DIR}/digital_library_BLPL.csv",
-                               sep='\t', on_bad_lines='skip')
-        prelim   = pd.read_csv(f"{PPORTAL_DIR}/digital_library_preliminary.csv",
-                               sep='\t', on_bad_lines='skip')
-        matching = pd.read_csv(f"{PPORTAL_DIR}/dl_goodreads_matching.csv",
-                               sep='\t', on_bad_lines='skip')
-        gwgenres = pd.read_csv(f"{PPORTAL_DIR}/goodreads_works_genres.csv",
-                               sep='\t', on_bad_lines='skip')
-        ggenres  = pd.read_csv(f"{PPORTAL_DIR}/goodreads_genres.csv",
-                               sep='\t', on_bad_lines='skip')
-
-        # 1. Filtrar só Obras Literárias disponíveis do BLPL
-        blpl['year'] = pd.to_numeric(blpl['work_publication_year'], errors='coerce')
-        mask = (blpl['file_available'] == True) & (blpl['work_category'] == 'Obra Literária')
-        if self.min_year:
-            mask &= blpl['year'] >= self.min_year
-        blpl_ok = blpl[mask].copy()
-        print(f"[Catálogo] Obras Literárias disponíveis: {len(blpl_ok)}")
-
-        # 2. Adicionar link de download
-        links = prelim[prelim['data_source'] == 'BLPL'][['original_id', 'download_link']]
-        df = blpl_ok.merge(links, on='original_id', how='inner')
-        print(f"[Catálogo] Com link de download: {len(df)}")
-
-        # 3. Montar gênero Goodreads (gênero primário por livro)
-        genre_full = gwgenres.merge(ggenres, on='genre_id')
-        primary_genre = (genre_full.groupby('work_id')
-                         .agg(gr_genre=('genre', lambda x: x.value_counts().index[0]))
-                         .reset_index())
-        df = df.merge(matching, on='original_id', how='left')
-        df = df.merge(primary_genre, left_on='goodreads_id', right_on='work_id', how='left')
-
-        # 4. Resolver broad_area e specific_theme
-        def resolve_genre(row):
-            # Prioridade 1: Goodreads
-            if pd.notna(row.get('gr_genre')):
-                mapped = GOODREADS_GENRE_MAP.get(row['gr_genre'])
-                if mapped:
-                    return mapped
-            # Prioridade 2: work_genre nativo BLPL
-            blpl_genre = row.get('work_genre', '')
-            if pd.notna(blpl_genre):
-                mapped = BLPL_GENRE_MAP.get(blpl_genre)
-                if mapped:
-                    return mapped
-            return ("Literária", "Outros")
-
-        df[['broad_area', 'specific_theme']] = df.apply(
-            lambda r: pd.Series(resolve_genre(r)), axis=1
-        )
-
-        # 5. Converter para lista de dicts
-        catalog = []
-        for _, row in df.iterrows():
-            catalog.append({
-                "original_id":    row['original_id'],
-                "title":          row.get('work_title', ''),
-                "author":         row.get('work_authors', ''),
-                "year":           str(int(row['year'])) if pd.notna(row['year']) else None,
-                "download_link":  row['download_link'],
-                "broad_area":     row['broad_area'],
-                "specific_theme": row['specific_theme'],
-            })
-
-        print(f"[Catálogo] Total para processar: {len(catalog)}")
-
-        # Mostrar distribuição de gêneros
-        areas = pd.DataFrame(catalog)['specific_theme'].value_counts()
-        print("[Catálogo] Distribuição de temas:")
-        print(areas.head(10).to_string())
-
-        return catalog
-
-    # ── Download e extração ──────────────────────────────────────────────────
-
+    # ── Lógica de Fatiamento (As regras da Tabela 2) ───────────────────────
     def categorizar_tamanho(self, char_count: int) -> str:
-        if 100 <= char_count <= 600:       return "Curto"
-        elif 601 <= char_count < 2501:     return "Médio"
-        elif 2501 <= char_count < 5000:    return "Médio-Longo"
-        elif 5000 <= char_count <= 30000:  return "Longo"
-        elif char_count > 30000:           return "Muito Longo"
+        if 100 <= char_count <= 600: return "Curto"
+        elif 601 <= char_count <= 2500: return "Médio"
+        elif 2501 <= char_count <= 5000: return "Médio-Longo"
+        elif 5000 < char_count <= 30000: return "Longo"
         return "Descartar"
 
-    def limpar_residuos(self, texto: str) -> str:
-        if not isinstance(texto, str):
-            return texto
-        texto = re.sub(r'https?://\S+|www\.\S+', '', texto)
-        nav_patterns = [
-            r'(?i)^publicidade\.?$', r'(?i)^compartilhar\.?$',
-            r'(?i)^clique aqui\.?$', r'(?i)^leia (também|mais)\.?$',
-            r'(?i)^veja (também|mais)\.?$', r'(?i)^saiba mais\.?$',
-        ]
-        linhas = texto.split('\n')
-        linhas = [l for l in linhas
-                  if not any(re.match(p, l.strip()) for p in nav_patterns)]
-        texto = '\n'.join(linhas)
-        inline = [r'\bleia (mais|também):?\b', r'\bveja (mais|também):?\b',
-                  r'\bclique (aqui|em)\b']
-        texto = re.sub('|'.join(inline), '', texto, flags=re.IGNORECASE)
-        texto = re.sub(r'[ \t]+', ' ', texto)
-        texto = re.sub(r'\n{3,}', '\n\n', texto)
-        return texto.strip()
-
-    async def fetch_and_process(self, session: aiohttp.ClientSession, entry: Dict):
-        url = entry['download_link']
-
-        # Se for um link da UFSC, injeta o comando de download direto do arquivo
-        if "literaturabrasileira.ufsc.br/documentos/?id=" in url:
-            url = url.replace("?id=", "?action=download&id=")
-            
-        headers = {"User-Agent": "Mozilla/5.0 (compatible; IC-Research-Bot/1.0)"}
-
-        async with self.semaphore:
-            for attempt in range(3):
-                try:
-                    timeout = aiohttp.ClientTimeout(total=60) # PDFs demoram mais para baixar, aumentei para 60s
-                    async with session.get(url, timeout=timeout, headers=headers) as response:
-                        
-                        if response.status == 200:
-                            # 1. Checa o que o servidor enviou (PDF ou HTML?)
-                            content_type = response.headers.get('Content-Type', '').lower()
-                            file_bytes = await response.read()
-
-                            if 'application/pdf' in content_type or url.endswith('.pdf'):
-                                await self.process_pdf(file_bytes, entry)
-                            else:
-                                # Se não for PDF, assume que é HTML e usa o Trafilatura
-                                detected = from_bytes(file_bytes).best()
-                                html_str = (str(detected) if detected else file_bytes.decode('utf-8', errors='replace'))
-                                await self.process_html(html_str, entry)
-                            return
-
-                        elif response.status in [429, 500, 502, 503, 504]:
-                            print(f"[Aviso] HTTP {response.status} — tentativa {attempt+1}/3: {url}")
-                        else:
-                            return  # 404/403 — não vale tentar de novo
-
-                except (aiohttp.ClientError, asyncio.TimeoutError):
-                    print(f"[Aviso] Timeout — tentativa {attempt+1}/3: {url}")
-
-                if attempt < 2:
-                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 1.0))
-
-            print(f"[Erro] Falha definitiva: {url}")
-
-    async def process_pdf(self, pdf_bytes: bytes, entry: Dict):
-        """Abre o PDF na memória, extrai todo o texto e envia para fatiamento."""
+    # ── Fase 1: Descoberta (Sitemap) ─────────────────────────────────────────
+    async def get_book_pages(self, session: aiohttp.ClientSession, limite_descoberta: int = None) -> list:
+        """Entra na página pública de catálogo e puxa os links como um humano faria."""
+        print("[Descoberta] Acessando a vitrine do catálogo do Projecto Adamastor...")
+        links_livros = set() # Usamos 'set' para não pegar o mesmo livro duplicado
+        
+        # O disfarce perfeito: finge ser o Google Chrome no Windows
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+        
         try:
-            doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-            texto_completo = ""
-            for page in doc:
-                texto_completo += page.get_text() + "\n\n"
-            doc.close()
-            
-            await self.fatiar_e_salvar(texto_completo, entry)
+            # Acessa a página principal onde os livros estão listados
+            async with session.get("https://projectoadamastor.org/catalogo/", timeout=20, headers=headers) as resp:
+                if resp.status == 200:
+                    html = await resp.text()
+                    soup = BeautifulSoup(html, 'html.parser')
+                    
+                    # Pega todos os links (tags <a>) da página
+                    for a_tag in soup.find_all('a', href=True):
+                        url = a_tag['href']
+                        
+                        # Um livro no Adamastor tem o link "https://projectoadamastor.org/nome-do-livro/"
+                        if url.startswith("https://projectoadamastor.org/") and url != "https://projectoadamastor.org/":
+                            
+                            # Ignora os links que são apenas menus, categorias ou autores
+                            lixo = ['/catalogo/', '/autor/', '/categoria/', '/tag/', '/sobre/', '/contactos/']
+                            if not any(palavra in url for palavra in lixo):
+                                links_livros.add(url)
+                                
+                                # A nossa trava de limite
+                                if limite_descoberta and len(links_livros) >= limite_descoberta:
+                                    break
+                else:
+                    print(f"[Erro] O servidor retornou o código {resp.status} na página do catálogo.")
+
         except Exception as e:
-            print(f"[Erro PDF] Não foi possível ler o PDF {entry['download_link']}: {e}")
+            print(f"[Erro Descoberta] Falha ao ler o catálogo: {e}")
+            
+        lista_final = list(links_livros)
+        print(f"[Descoberta] {len(lista_final)} páginas de livros encontradas no catálogo!")
+        return lista_final
 
-    async def process_html(self, html_content: str, entry: Dict):
-        """Se for uma página web, usa o trafilatura e envia para fatiamento."""
-        texto_completo = trafilatura.extract(
-            html_content,
-            url=entry['download_link'],
-            target_language="pt",
-            include_comments=False,
-            include_tables=False,
-            favor_precision=True
-        )
-        if texto_completo:
-            await self.fatiar_e_salvar(texto_completo, entry)
+    # ── Fase 2 e 3: Visitar Página e Baixar EPUB ─────────────────────────────
+    async def process_book_page(self, session: aiohttp.ClientSession, page_url: str):
+        """Entra na página do livro, acha o botão do EPUB e faz o download."""
+        async with self.semaphore:
+            try:
+                # 1. Visita a página do livro
+                async with session.get(page_url, timeout=30) as resp:
+                    if resp.status != 200: 
+                        print(f"[Erro] Página inacessível ({resp.status}): {page_url}")
+                        return
+                        
+                    html = await resp.text()
+                    soup = BeautifulSoup(html, 'html.parser')
 
-    async def fatiar_e_salvar(self, texto_completo: str, entry: Dict):
-        """O Motor de Fatiamento (Chunking): Pega um livro inteiro e corta em pedaços perfeitos."""
-        
-        # Limpeza para arrumar quebras de linha estranhas comuns em PDFs
-        texto_limpo = re.sub(r'(?<!\n)\n(?!\n)', ' ', texto_completo) 
-        texto_limpo = self.limpar_residuos(texto_limpo)
-        
+                    # 2. Procura a tag <a> de forma muito mais agressiva
+                    epub_link = None
+                    for a_tag in soup.find_all('a', href=True):
+                        href = a_tag['href']
+                        texto_botao = a_tag.get_text().upper()
+                        
+                        # Verifica se o link contém .epub OU se o botão diz "EPUB"
+                        if '.epub' in href.lower() or 'EPUB' in texto_botao:
+                            epub_link = href
+                            break
+                    
+                    if not epub_link:
+                        print(f"[Aviso] Nenhum link EPUB encontrado em: {page_url}")
+                        return
+
+                    # Se o link for relativo (ex: /wp-content/...), transforma em absoluto
+                    if epub_link.startswith('/'):
+                        epub_link = "https://projectoadamastor.org" + epub_link
+
+                    print(f" -> Baixando: {epub_link.split('/')[-1]}")
+
+                    # 3. Baixa o arquivo EPUB para a memória
+                    async with session.get(epub_link, timeout=45) as epub_resp:
+                        if epub_resp.status == 200:
+                            epub_bytes = await epub_resp.read()
+                            # 4. Envia para fatiamento!
+                            await self.process_epub_bytes(epub_bytes, page_url)
+                        else:
+                            print(f"[Erro] O arquivo EPUB retornou código {epub_resp.status}: {epub_link}")
+                            
+            except Exception as e:
+                print(f"[Erro na Página] {page_url} -> {e}")
+
+    # ── Fase 4: O "Descompactador" de EPUB ───────────────────────────────────
+    async def process_epub_bytes(self, epub_bytes: bytes, original_page_url: str):
+        """Abre o EPUB como ZIP, tira o HTML puro e fatia."""
+        try:
+            texto_completo = ""
+            with zipfile.ZipFile(io.BytesIO(epub_bytes)) as archive:
+                for item in archive.namelist():
+                    # Os capítulos literários ficam em arquivos html/xhtml no EPUB
+                    if item.endswith('.html') or item.endswith('.xhtml'):
+                        html_content = archive.read(item)
+                        
+                        # Trafilatura arranca o HTML e deixa só o português polido
+                        texto_capitulo = trafilatura.extract(
+                            html_content,
+                            target_language="pt",
+                            include_comments=False,
+                            include_tables=False,
+                            favor_precision=True
+                        )
+                        if texto_capitulo:
+                            texto_completo += texto_capitulo + "\n\n"
+
+            if texto_completo.strip():
+                await self.fatiar_e_salvar(texto_completo, original_page_url)
+                
+        except Exception as e:
+            print(f"[Erro EPUB] Falha ao processar o EPUB de {original_page_url}: {e}")
+
+    # ── Fase 5: Chunking (Fatiamento) ────────────────────────────────────────
+    async def fatiar_e_salvar(self, texto_completo: str, source_url: str):
+        # Limpeza básica de quebras de linha múltiplas
+        texto_limpo = re.sub(r'\n{3,}', '\n\n', texto_completo).strip()
         paragrafos = [p.strip() for p in texto_limpo.split('\n\n') if p.strip()]
 
         chunk_atual = ""
         chunks_salvos = 0
 
         for p in paragrafos:
-            # Acumula parágrafos até o bloco ter cerca de 4000 caracteres (Categoria: Médio-Longo)
-            if len(chunk_atual) < 4000:
+            # Acumula até ~3500 chars para garantir blocos robustos
+            if len(chunk_atual) < 3500:
                 chunk_atual += p + "\n\n"
             else:
-                sucesso = await self.avaliar_e_salvar_chunk(chunk_atual.strip(), entry)
-                if sucesso: chunks_salvos += 1
+                if await self.avaliar_e_salvar_chunk(chunk_atual.strip(), source_url):
+                    chunks_salvos += 1
                 chunk_atual = p + "\n\n"
 
-        # Salva o restinho do livro se for maior que 500 caracteres
         if len(chunk_atual) > 500:
-            sucesso = await self.avaliar_e_salvar_chunk(chunk_atual.strip(), entry)
-            if sucesso: chunks_salvos += 1
-            
+            if await self.avaliar_e_salvar_chunk(chunk_atual.strip(), source_url):
+                chunks_salvos += 1
+                
         if chunks_salvos > 0:
-            print(f"[Livro Processado] '{entry.get('title','?')[:30]}...' rendeu {chunks_salvos} textos no DB.")
+            nome_livro = source_url.split('/')[-2].replace('-', ' ').title()
+            print(f"[SUCESSO] '{nome_livro}' rendeu {chunks_salvos} amostras perfeitas!")
 
-
-    async def avaliar_e_salvar_chunk(self, texto: str, entry: Dict) -> bool:
-        """Aplica as regras finais em um pedaço do livro e salva no DB."""
-        word_count = len(texto.split())
+    async def avaliar_e_salvar_chunk(self, texto: str, source_url: str) -> bool:
         char_count = len(texto)
-        
         categoria = self.categorizar_tamanho(char_count)
-        if categoria == "Descartar":
-            return False
-
-        # Filtro de idioma para garantir que o pedaço não é uma introdução em inglês/espanhol
-        try:
-            if char_count > 200 and detect(texto) not in ['pt']:
-                return False
-        except LangDetectException:
-            return False
+        if categoria == "Descartar": return False
 
         texto_hash = hashlib.md5(texto.encode('utf-8')).hexdigest()
-        if texto_hash in self.seen_hashes:
-            return False
+        if texto_hash in self.seen_hashes: return False
+        
+        try:
+            if detect(texto) != 'pt': return False
+        except: return False
+
         self.seen_hashes.add(texto_hash)
 
         record = {
-            "text_id":        str(uuid.uuid4()), # Cada chunk ganha um ID único
-            "content":        texto,
-            "label":          0,
-            "broad_area":     entry['broad_area'],
-            "specific_theme": entry['specific_theme'],
-            "char_count":     char_count,
-            "word_count":     word_count,
-            "size_category":  categoria,
-            "creation_date":  entry.get('year'),
-            "source_url":     entry['download_link'],
-            "source_name":    "PPORTAL/BLPL",
-            "content_hash":   texto_hash,
+            "text_id": str(uuid.uuid4()),
+            "content": texto,
+            "label": 0,
+            "broad_area": "Literária",     # Tudo do Adamastor é literatura clássica
+            "specific_theme": "Ficção/Contos/Poesia",
+            "char_count": char_count,
+            "word_count": len(texto.split()),
+            "size_category": categoria,
+            "source_url": source_url,
+            "source_name": "projectoadamastor.org",
+            "content_hash": texto_hash
         }
+        
         await self.save_record(record)
         return True
 
-   
     # ── Orquestrador ─────────────────────────────────────────────────────────
-
-    async def run(self, max_books: Optional[int] = None, batch_size: int = 20):
+    async def run(self, max_books: int = None):
         await self.init_db()
-
         try:
-            self.catalog = self.build_catalog()
-
-            if max_books:
-                random.shuffle(self.catalog)
-                self.catalog = self.catalog[:max_books]
-                print(f"[Modo Teste] Limitando a {max_books} livros.")
-
-            print(f"\n[Pipeline] Iniciando download de {len(self.catalog)} livros "
-                  f"em lotes de {batch_size}...")
-
             async with aiohttp.ClientSession() as session:
-                for i in range(0, len(self.catalog), batch_size):
-                    batch = self.catalog[i:i + batch_size]
-                    tasks = [self.fetch_and_process(session, e) for e in batch]
-                    await asyncio.gather(*tasks)
-                    print(f"[Progresso] Lote {i//batch_size + 1} concluído. "
-                          f"Salvos até agora: {len(self.seen_hashes)}")
-                    await asyncio.sleep(2)  # pausa entre lotes
+                paginas = await self.get_book_pages(session)
 
+                if max_books:
+                    import random
+                    random.shuffle(paginas) # Embaralha para pegar 10 livros aleatórios
+                    paginas = paginas[:max_books]
+                    print(f"\n[MODO TESTE] Lista cortada para {max_books} livros.")
+                # ---------------------------
+                
+                print(f"\n[Processamento] Baixando e extraindo EPUBs de {len(paginas)} páginas...")
+                
+                batch_size = 20
+                for i in range(0, len(paginas), batch_size):
+                    batch = paginas[i:i + batch_size]
+                    tasks = [self.process_book_page(session, url) for url in batch]
+                    await asyncio.gather(*tasks)
+                    await asyncio.sleep(1) # Respiro para o servidor deles
+                    
         finally:
             await self.close_db()
+        print("\n[Finalizado] Extração do Projecto Adamastor concluída!")
 
-        print(f"\n[Finalizado] Total de textos únicos salvos: {len(self.seen_hashes)}")
-
-
-# ── Execução ──────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    pipeline = BookScraperPipeline(
-        max_concurrent=5,
-        min_year=None,   # None = sem filtro de ano (recomendado para BLPL)
-                         # Use min_year=1950 se quiser só obras mais recentes
-    )
-    asyncio.run(pipeline.run(
-        max_books=50,    # None = processar tudo; número = modo teste
-        batch_size=20,
-    ))
+    pipeline = AdamastorScraperPipeline(max_concurrent=5)
+    asyncio.run(pipeline.run(max_books=10))
