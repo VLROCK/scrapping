@@ -91,43 +91,51 @@ class WaybackScraperPipeline:
         cdx_url = "http://web.archive.org/cdx/search/cdx"
         todos_snapshots = []
 
+        trimestres = [
+            ("01", "03"), # Jan a Mar
+            ("04", "06"), # Abr a Jun
+            ("07", "09"), # Jul a Set
+            ("10", "12")  # Out a Dez
+        ]
+
         for ano in range(2006, 2018):
-            params = {
-                "url": f"{domain}/*",
-                "output": "json",
-                "from": str(ano),
-                "to": str(ano),
-                "fl": "timestamp,original,statuscode,mimetype",
-                "filter": ["statuscode:200", "mimetype:text/html"],
-                "collapse": "urlkey",
-                "limit": "50",
-            }
+            for mes_inicio, mes_fim in trimestres:
+                params = {
+                    "url": f"{domain}/*",
+                    "output": "json",
+                    "from": f"{ano}{mes_inicio}",
+                    "to": f"{ano}{mes_fim}",
+                    "fl": "timestamp,original,statuscode,mimetype",
+                    "filter": ["statuscode:200", "mimetype:text/html"],
+                    "collapse": "urlkey",
+                    "limit": "50",
+                }
 
-            for attempt in range(3):
-                try:
-                    timeout = aiohttp.ClientTimeout(total=45)
-                    async with session.get(cdx_url, params=params, timeout=timeout) as response:
-                        if response.status == 200:
-                            text = await response.text()
-                            if not text.strip():
+                for attempt in range(3):
+                    try:
+                        timeout = aiohttp.ClientTimeout(total=45)
+                        async with session.get(cdx_url, params=params, timeout=timeout) as response:
+                            if response.status == 200:
+                                text = await response.text()
+                                if not text.strip():
+                                    break
+                                try:
+                                    data = json.loads(text)
+                                except json.JSONDecodeError:
+                                    print(f"[Erro CDX] JSON inválido para {domain} ({ano})")
+                                    break
+                                if data and isinstance(data, list) and len(data) > 1:
+                                    keys = data[0]
+                                    snapshots_ano = [dict(zip(keys, row)) for row in data[1:]]
+                                    todos_snapshots.extend(snapshots_ano)
+                                    print(f"  {domain} ({ano}): {len(snapshots_ano)} snapshots")
                                 break
-                            try:
-                                data = json.loads(text)
-                            except json.JSONDecodeError:
-                                print(f"[Erro CDX] JSON inválido para {domain} ({ano})")
-                                break
-                            if data and isinstance(data, list) and len(data) > 1:
-                                keys = data[0]
-                                snapshots_ano = [dict(zip(keys, row)) for row in data[1:]]
-                                todos_snapshots.extend(snapshots_ano)
-                                print(f"  {domain} ({ano}): {len(snapshots_ano)} snapshots")
-                            break
 
-                except Exception:
-                    print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain} ({ano})")
-                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
+                    except Exception:
+                        print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain} ({ano})")
+                        await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
 
-            await asyncio.sleep(0.5)
+                await asyncio.sleep(0.5)
 
         return todos_snapshots
 
@@ -195,10 +203,8 @@ class WaybackScraperPipeline:
     def is_textual_article(self, texto: str) -> bool:
         """Verifica se o texto tem densidade de parágrafos de um artigo real."""
         paragrafos = [p for p in texto.split('\n') if p.strip()]
-        if len(paragrafos) < 3:
-            return False
         media = sum(len(p.split()) for p in paragrafos) / len(paragrafos)
-        return media >= 8   # artigo real tem parágrafos mais densos que menu
+        return media >= 5   # artigo real tem parágrafos mais densos que menu
 
     def has_metadata_pattern(self, texto: str) -> bool:
         """Detecta textos que são dumps de metadados em vez de conteúdo."""
@@ -268,44 +274,48 @@ class WaybackScraperPipeline:
 
         # ── Filtros de qualidade (ordem: do mais barato ao mais caro) ────────
 
-        # 1. Mojibake — encoding corrompido
-        if self.has_mojibake(texto_limpo):
-            return
-
         # 2. Metadados / dumps de JSON
         if self.has_metadata_pattern(texto_limpo):
+            print(f"[Descarte] Metadados: {original_url}")
             return
 
         # 3. Termos de blacklist (cookies, newsletter, etc.)
         if self.has_blacklist_terms(texto_limpo):
+            print(f"[Descarte] Blacklist: {original_url}")
             return
 
         # 4. Repetição excessiva de linhas
         if self.has_too_much_repetition(texto_limpo):
+            print(f"[Descarte] Repetição (Menu): {original_url}")
             return
 
         # 5. Densidade de linhas (anti-menu)
         linhas_totais   = texto_limpo.split('\n')
         linhas_conteudo = [l for l in linhas_totais if l.strip()]
         if not linhas_conteudo:
+            print(f"[Descarte] Sem conteúdo após split: {original_url}")
             return
         ratio_vazias = 1 - len(linhas_conteudo) / len(linhas_totais)
         if ratio_vazias > 0.4:
+            print(f"[Descarte] Densidade Vazia ({ratio_vazias:.2f}): {original_url}")
             return
 
         # 6. Palavras por linha (anti-lista de links)
         word_count = len(texto_limpo.split())
         palavras_por_linha = word_count / len(linhas_conteudo)
-        if palavras_por_linha < 8:
+        if palavras_por_linha < 4:
+            print(f"[Descarte] Palavras/Linha ({palavras_por_linha:.1f}): {original_url}")
             return
 
         # 7. Densidade texto/HTML (garante que o trafilatura extraiu bem)
         densidade = len(texto_limpo) / (len(html_str) + 1)
-        if densidade < 0.05:
+        if densidade < 0.02:
+            print(f"[Descarte] Densidade HTML ({densidade:.2f}): {original_url}")
             return
 
         # 8. Verifica se parece artigo real (parágrafos com substância)
         if not self.is_textual_article(texto_limpo):
+            print(f"[Descarte] Não parece artigo: {original_url}")
             return
 
         # ── Categorização e filtros finais ───────────────────────────────────
@@ -401,4 +411,4 @@ if __name__ == "__main__":
         target_domains=dominios,
         max_concurrent_requests=5,
     )
-    asyncio.run(pipeline.run(max_test_urls=500))
+    asyncio.run(pipeline.run(max_test_urls=1000))
