@@ -108,7 +108,7 @@ class WaybackScraperPipeline:
                     "fl": "timestamp,original,statuscode,mimetype",
                     "filter": ["statuscode:200", "mimetype:text/html"],
                     "collapse": "urlkey",
-                    "limit": "50",
+                    "limit": "5",
                 }
 
                 for attempt in range(3):
@@ -411,4 +411,4 @@ if __name__ == "__main__":
         target_domains=dominios,
         max_concurrent_requests=5,
     )
-    asyncio.run(pipeline.run(max_test_urls=1000))
+    asyncio.run(pipeline.run(max_test_urls=500))
