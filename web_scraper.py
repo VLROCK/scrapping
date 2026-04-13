@@ -8,6 +8,7 @@ import uuid
 import aiosqlite
 import os
 import random
+import time
 from urllib.parse import urlparse
 from typing import List, Dict, Optional
 import trafilatura
@@ -37,25 +38,30 @@ METADATA_PATTERNS = [
     r'ordem:',
 ]
 
+# Tempo máximo total — 5h para folgar no limite de 6h do GitHub Actions
+MAX_RUNTIME_SECONDS = 5 * 60 * 60
+
 
 class WaybackScraperPipeline:
 
     def __init__(self, target_domains: List[str], max_concurrent_requests: int = 5):
         self.target_domains = target_domains
-        self.semaphore   = asyncio.Semaphore(max_concurrent_requests)
+        self.semaphore      = asyncio.Semaphore(max_concurrent_requests)
+        # Semáforo separado para o CDX — limita chamadas paralelas à API do Wayback
+        self.cdx_semaphore  = asyncio.Semaphore(4)
         self.seen_hashes: set = set()
+        self.start_time: float = 0.0
+
+    def tempo_esgotado(self) -> bool:
+        return (time.monotonic() - self.start_time) > MAX_RUNTIME_SECONDS
 
     # ── Banco de dados ───────────────────────────────────────────────────────
 
     async def init_db(self):
-        """Abre o banco, cria a tabela (se não existir) e carrega hashes."""
         os.makedirs("data", exist_ok=True)
         self.db = await aiosqlite.connect(DB_PATH)
-
         with open("schema.sql", "r", encoding="utf-8") as f:
-            schema = f.read()
-
-        await self.db.executescript(schema)
+            await self.db.executescript(f.read())
         await self.db.commit()
 
         async with self.db.execute("SELECT content_hash FROM texts") as cursor:
@@ -85,114 +91,131 @@ class WaybackScraperPipeline:
         )
         await self.db.commit()
 
-    # ── CDX Discovery ────────────────────────────────────────────────────────
+    # ── CDX Discovery (paralelo) ─────────────────────────────────────────────
 
-    async def get_cdx_snapshots(self, session: aiohttp.ClientSession, domain: str) -> List[Dict]:
+    async def get_cdx_snapshots_trimestre(
+        self,
+        session: aiohttp.ClientSession,
+        domain: str,
+        ano: int,
+        mes_inicio: str,
+        mes_fim: str,
+    ) -> List[Dict]:
+        """Busca snapshots de um único trimestre. Chamado em paralelo."""
         cdx_url = "http://web.archive.org/cdx/search/cdx"
-        todos_snapshots = []
+        params = {
+            "url":    f"{domain}/*",
+            "output": "json",
+            "from":   f"{ano}{mes_inicio}",
+            "to":     f"{ano}{mes_fim}",
+            "fl":     "timestamp,original,statuscode,mimetype",
+            "filter": ["statuscode:200", "mimetype:text/html"],
+            "collapse": "urlkey",
+            "limit":  "8",  # 8 × 4 trimestres × 12 anos = 384 por domínio
+        }
 
-        trimestres = [
-            ("01", "03"), # Jan a Mar
-            ("04", "06"), # Abr a Jun
-            ("07", "09"), # Jul a Set
-            ("10", "12")  # Out a Dez
-        ]
+        async with self.cdx_semaphore:
+            for attempt in range(3):
+                try:
+                    timeout = aiohttp.ClientTimeout(total=30)
+                    async with session.get(cdx_url, params=params,
+                                           timeout=timeout) as response:
+                        if response.status == 200:
+                            text = await response.text()
+                            if not text.strip():
+                                return []
+                            try:
+                                data = json.loads(text)
+                            except json.JSONDecodeError:
+                                return []
+                            if data and isinstance(data, list) and len(data) > 1:
+                                keys = data[0]
+                                return [dict(zip(keys, row)) for row in data[1:]]
+                            return []
 
-        for ano in range(2006, 2018):
-            for mes_inicio, mes_fim in trimestres:
-                params = {
-                    "url": f"{domain}/*",
-                    "output": "json",
-                    "from": f"{ano}{mes_inicio}",
-                    "to": f"{ano}{mes_fim}",
-                    "fl": "timestamp,original,statuscode,mimetype",
-                    "filter": ["statuscode:200", "mimetype:text/html"],
-                    "collapse": "urlkey",
-                    "limit": "5",
-                }
-
-                for attempt in range(3):
-                    try:
-                        timeout = aiohttp.ClientTimeout(total=45)
-                        async with session.get(cdx_url, params=params, timeout=timeout) as response:
-                            if response.status == 200:
-                                text = await response.text()
-                                if not text.strip():
-                                    break
-                                try:
-                                    data = json.loads(text)
-                                except json.JSONDecodeError:
-                                    print(f"[Erro CDX] JSON inválido para {domain} ({ano})")
-                                    break
-                                if data and isinstance(data, list) and len(data) > 1:
-                                    keys = data[0]
-                                    snapshots_ano = [dict(zip(keys, row)) for row in data[1:]]
-                                    todos_snapshots.extend(snapshots_ano)
-                                    print(f"  {domain} ({ano}): {len(snapshots_ano)} snapshots")
-                                break
-
-                    except Exception:
-                        print(f"[Aviso CDX] Tentativa {attempt+1} falhou para {domain} ({ano})")
+                except Exception:
+                    if attempt < 2:
                         await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
 
-                await asyncio.sleep(0.5)
+        return []
 
-        return todos_snapshots
+    async def get_cdx_snapshots(
+        self, session: aiohttp.ClientSession, domain: str
+    ) -> List[Dict]:
+        """
+        Dispara todas as chamadas CDX do domínio em paralelo.
+        12 anos × 4 trimestres = 48 tasks por domínio, limitadas pelo cdx_semaphore.
+        Antes: sequencial com sleep = ~30min. Agora: ~1-2min.
+        """
+        trimestres = [("01", "03"), ("04", "06"), ("07", "09"), ("10", "12")]
+
+        tasks = [
+            self.get_cdx_snapshots_trimestre(session, domain, ano, m_ini, m_fim)
+            for ano in range(2006, 2018)
+            for m_ini, m_fim in trimestres
+        ]
+
+        resultados = await asyncio.gather(*tasks, return_exceptions=True)
+
+        snapshots = []
+        for r in resultados:
+            if isinstance(r, list):
+                snapshots.extend(r)
+
+        print(f"  {domain}: {len(snapshots)} snapshots encontrados.")
+        return snapshots
 
     # ── Download com retry ───────────────────────────────────────────────────
 
-    async def fetch_and_process_html(self, session: aiohttp.ClientSession, snapshot: Dict):
-        """Baixa o HTML com retry e backoff exponencial e processa o texto."""
+    async def fetch_and_process_html(
+        self, session: aiohttp.ClientSession, snapshot: Dict
+    ):
+        if self.tempo_esgotado():
+            return
+
         timestamp    = snapshot['timestamp']
         original_url = snapshot['original']
 
         if any(p in original_url for p in BLOCKED_URL_PATTERNS):
             return
 
-        wm_url   = f"http://web.archive.org/web/{timestamp}id_/{original_url}"
-        headers  = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
-        max_retries = 3
-        base_delay  = 2
+        wm_url  = f"http://web.archive.org/web/{timestamp}id_/{original_url}"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
         async with self.semaphore:
-            for attempt in range(max_retries):
+            for attempt in range(3):
+                if self.tempo_esgotado():
+                    return
                 try:
-                    timeout = aiohttp.ClientTimeout(total=30)
-                    async with session.get(wm_url, timeout=timeout, headers=headers) as response:
-
+                    timeout = aiohttp.ClientTimeout(total=25)  # reduzido de 30
+                    async with session.get(wm_url, timeout=timeout,
+                                           headers=headers) as response:
                         if response.status == 200:
                             html_bytes = await response.read()
-
                             try:
                                 detected = from_bytes(html_bytes).best()
                                 html_str = str(detected) if detected else None
                             except Exception:
                                 html_str = None
-
                             if not html_str:
                                 html_str = html_bytes.decode("utf-8", errors="replace")
-
                             await self.process_text(html_str, original_url, timestamp)
                             return
 
                         elif response.status in [429, 500, 502, 503, 504]:
-                            print(f"[Aviso] HTTP {response.status} — tentativa {attempt+1}/{max_retries}: {wm_url}")
+                            print(f"[Aviso] HTTP {response.status} tentativa {attempt+1}/3")
                         else:
                             return  # 404/403 — não tenta de novo
 
                 except (aiohttp.ClientError, asyncio.TimeoutError):
-                    print(f"[Aviso] Timeout — tentativa {attempt+1}/{max_retries}: {wm_url}")
+                    pass
 
-                if attempt < max_retries - 1:
-                    sleep_time = (base_delay * (2 ** attempt)) + random.uniform(0.1, 1.0)
-                    await asyncio.sleep(sleep_time)
-
-            print(f"[Erro] Falha definitiva após {max_retries} tentativas: {wm_url}")
+                if attempt < 2:
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 1.0))
 
     # ── Filtros de qualidade ─────────────────────────────────────────────────
 
     def categorizar_tamanho(self, char_count: int) -> str:
-        """Aplica a regra da Tabela 2 do documento do projeto."""
         if 100 <= char_count <= 600:       return "Curto"
         elif 601 <= char_count < 2501:     return "Médio"
         elif 2501 <= char_count < 5000:    return "Médio-Longo"
@@ -201,52 +224,42 @@ class WaybackScraperPipeline:
         return "Descartar"
 
     def is_textual_article(self, texto: str) -> bool:
-        """Verifica se o texto tem densidade de parágrafos de um artigo real."""
         paragrafos = [p for p in texto.split('\n') if p.strip()]
+        if not paragrafos:
+            return False
         media = sum(len(p.split()) for p in paragrafos) / len(paragrafos)
-        return media >= 5   # artigo real tem parágrafos mais densos que menu
+        return media >= 5
 
     def has_metadata_pattern(self, texto: str) -> bool:
-        """Detecta textos que são dumps de metadados em vez de conteúdo."""
         return any(re.search(p, texto, re.MULTILINE) for p in METADATA_PATTERNS)
 
     def has_too_much_repetition(self, texto: str) -> bool:
-        """Detecta textos com linhas repetidas (menus, listas de links)."""
         linhas = [l.strip() for l in texto.split('\n') if l.strip()]
         if not linhas:
             return True
         return len(set(linhas)) / len(linhas) < 0.6
 
     def has_blacklist_terms(self, texto: str) -> bool:
-        """Detecta páginas de termos, cookies e cadastro."""
-        texto_lower = texto.lower()
-        return any(term in texto_lower for term in BLACKLIST_TERMS)
+        return any(term in texto.lower() for term in BLACKLIST_TERMS)
 
     def has_mojibake(self, texto: str) -> bool:
-        """Detecta encoding corrompido."""
-        return texto.count("") > 10
+        return texto.count("\ufffd") > 10
 
     def limpar_residuos(self, texto: str) -> str:
-        """Remove artefatos de navegação sem destruir o conteúdo."""
         if not isinstance(texto, str):
             return texto
-
         texto = re.sub(r'https?://\S+|www\.\S+', '', texto)
-
         nav_patterns = [
             r'(?i)^publicidade\.?$', r'(?i)^compartilhar\.?$',
             r'(?i)^clique aqui\.?$', r'(?i)^leia (também|mais)\.?$',
             r'(?i)^veja (também|mais)\.?$', r'(?i)^saiba mais\.?$',
         ]
-        linhas = texto.split('\n')
-        linhas = [l for l in linhas
+        linhas = [l for l in texto.split('\n')
                   if not any(re.match(p, l.strip()) for p in nav_patterns)]
         texto = '\n'.join(linhas)
-
         inline = [r'\bleia (mais|também):?\b', r'\bveja (mais|também):?\b',
                   r'\bclique (aqui|em)\b']
         texto = re.sub('|'.join(inline), '', texto, flags=re.IGNORECASE)
-
         texto = re.sub(r'[ \t]+', ' ', texto)
         texto = re.sub(r'\n{3,}', '\n\n', texto)
         return texto.strip()
@@ -254,8 +267,6 @@ class WaybackScraperPipeline:
     # ── Processamento principal ──────────────────────────────────────────────
 
     async def process_text(self, html_str: str, original_url: str, timestamp: str):
-        """Extrai, limpa, filtra e deduplica o conteúdo."""
-
         texto_limpo = trafilatura.extract(
             html_str,
             url=original_url,
@@ -269,62 +280,36 @@ class WaybackScraperPipeline:
         if not texto_limpo:
             return
 
-        # ── Limpeza de resíduos ──────────────────────────────────────────────
         texto_limpo = self.limpar_residuos(texto_limpo)
 
-        # ── Filtros de qualidade (ordem: do mais barato ao mais caro) ────────
+        # Filtros em ordem do mais barato ao mais caro
+        if self.has_mojibake(texto_limpo):            return
+        if self.has_metadata_pattern(texto_limpo):   return
+        if self.has_blacklist_terms(texto_limpo):     return
+        if self.has_too_much_repetition(texto_limpo): return
 
-        # 2. Metadados / dumps de JSON
-        if self.has_metadata_pattern(texto_limpo):
-            print(f"[Descarte] Metadados: {original_url}")
-            return
-
-        # 3. Termos de blacklist (cookies, newsletter, etc.)
-        if self.has_blacklist_terms(texto_limpo):
-            print(f"[Descarte] Blacklist: {original_url}")
-            return
-
-        # 4. Repetição excessiva de linhas
-        if self.has_too_much_repetition(texto_limpo):
-            print(f"[Descarte] Repetição (Menu): {original_url}")
-            return
-
-        # 5. Densidade de linhas (anti-menu)
         linhas_totais   = texto_limpo.split('\n')
         linhas_conteudo = [l for l in linhas_totais if l.strip()]
         if not linhas_conteudo:
-            print(f"[Descarte] Sem conteúdo após split: {original_url}")
-            return
-        ratio_vazias = 1 - len(linhas_conteudo) / len(linhas_totais)
-        if ratio_vazias > 0.4:
-            print(f"[Descarte] Densidade Vazia ({ratio_vazias:.2f}): {original_url}")
             return
 
-        # 6. Palavras por linha (anti-lista de links)
+        if 1 - len(linhas_conteudo) / len(linhas_totais) > 0.4:
+            return
+
         word_count = len(texto_limpo.split())
-        palavras_por_linha = word_count / len(linhas_conteudo)
-        if palavras_por_linha < 4:
-            print(f"[Descarte] Palavras/Linha ({palavras_por_linha:.1f}): {original_url}")
+        if word_count / len(linhas_conteudo) < 4:
             return
 
-        # 7. Densidade texto/HTML (garante que o trafilatura extraiu bem)
-        densidade = len(texto_limpo) / (len(html_str) + 1)
-        if densidade < 0.02:
-            print(f"[Descarte] Densidade HTML ({densidade:.2f}): {original_url}")
+        if len(texto_limpo) / (len(html_str) + 1) < 0.02:
             return
 
-        # 8. Verifica se parece artigo real (parágrafos com substância)
         if not self.is_textual_article(texto_limpo):
-            print(f"[Descarte] Não parece artigo: {original_url}")
             return
 
-        # ── Categorização e filtros finais ───────────────────────────────────
         char_count = len(texto_limpo)
         categoria  = self.categorizar_tamanho(char_count)
         if categoria == "Descartar":
             return
-
-        ano_criacao = timestamp[:4]
 
         try:
             if char_count > 200 and detect(texto_limpo) not in ['pt']:
@@ -337,57 +322,78 @@ class WaybackScraperPipeline:
             return
         self.seen_hashes.add(texto_hash)
 
-        record = {
+        await self.save_record({
             "text_id":        str(uuid.uuid4()),
             "content":        texto_limpo,
             "label":          0,
             "broad_area":     "Jornalística",
-            "specific_theme": None,           # preenchido pelo Maritaca
+            "specific_theme": None,
             "char_count":     char_count,
             "word_count":     word_count,
             "size_category":  categoria,
-            "creation_date":  ano_criacao,
+            "creation_date":  timestamp[:4],
             "source_url":     original_url,
-            "source_name":    urlparse(original_url).hostname,  # sem porta :80
+            "source_name":    urlparse(original_url).hostname,
             "content_hash":   texto_hash,
-        }
-        await self.save_record(record)
+        })
         print(f"[Salvo] {original_url} ({char_count} chars)")
 
     # ── Orquestrador ─────────────────────────────────────────────────────────
 
     async def run(self, max_test_urls: Optional[int] = None):
         """Orquestrador do pipeline."""
+        self.start_time = time.monotonic()
         await self.init_db()
 
         try:
             async with aiohttp.ClientSession() as session:
-                print("Fase 1: Discovery (CDX API)...")
+
+                # Fase 1: discovery de TODOS os domínios em paralelo
+                print("Fase 1: Discovery CDX (paralelo por domínio)...")
+                domain_tasks = [
+                    self.get_cdx_snapshots(session, d)
+                    for d in self.target_domains
+                ]
+                resultados = await asyncio.gather(*domain_tasks)
+
                 all_snapshots = []
-                for domain in self.target_domains:
-                    snapshots = await self.get_cdx_snapshots(session, domain)
-                    all_snapshots.extend(snapshots)
-                    print(f"  {domain}: {len(snapshots)} snapshots encontrados.")
+                for snaps in resultados:
+                    all_snapshots.extend(snaps)
+
+                elapsed = time.monotonic() - self.start_time
+                print(f"Discovery concluído em {elapsed:.0f}s. "
+                      f"Total: {len(all_snapshots)} snapshots.")
 
                 if max_test_urls:
                     random.shuffle(all_snapshots)
                     all_snapshots = all_snapshots[:max_test_urls]
                     print(f"[Modo Teste] Limitando a {max_test_urls} URLs.")
 
-                print(f"\nFase 2/3: Processando {len(all_snapshots)} links em lotes...")
+                # Fase 2/3: download e processamento em lotes
+                print(f"\nFase 2/3: Processando {len(all_snapshots)} links...")
                 batch_size = 100
                 for i in range(0, len(all_snapshots), batch_size):
+                    if self.tempo_esgotado():
+                        print("[Aviso] Tempo limite atingido — encerrando com segurança.")
+                        break
+
                     batch = all_snapshots[i:i + batch_size]
-                    tasks = [self.fetch_and_process_html(session, s) for s in batch]
-                    await asyncio.gather(*tasks)
-                    print(f"[Progresso] Lote {i//batch_size + 1} concluído. "
-                          f"Salvos: {len(self.seen_hashes)}")
+                    await asyncio.gather(
+                        *[self.fetch_and_process_html(session, s) for s in batch]
+                    )
+
+                    elapsed = time.monotonic() - self.start_time
+                    print(f"[Progresso] Lote {i//batch_size + 1} | "
+                          f"Salvos: {len(self.seen_hashes)} | "
+                          f"Tempo: {elapsed/60:.1f}min")
                     await asyncio.sleep(1)
 
         finally:
             await self.close_db()
 
-        print(f"\n[Finalizado] Total de textos únicos coletados: {len(self.seen_hashes)}")
+        elapsed = time.monotonic() - self.start_time
+        print(f"\n[Finalizado] {len(self.seen_hashes)} textos únicos "
+              f"em {elapsed/60:.1f} minutos.")
 
 
 # ── Execução ──────────────────────────────────────────────────────────────────
