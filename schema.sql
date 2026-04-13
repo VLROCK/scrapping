@@ -28,3 +28,8 @@ CREATE TABLE IF NOT EXISTS texts_ia (
     temperature    REAL,
     content_hash   TEXT NOT NULL UNIQUE
 );
+
+CREATE TABLE IF NOT EXISTS visited_urls (
+    url_hash TEXT PRIMARY KEY,
+    visited_at TEXT NOT NULL
+);

@@ -21,12 +21,13 @@ DB_PATH = "data/dataset.db"
 
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/",
-    "/autor/", "/busca", "/search", "/page/", "/galeria", "/login",
+    "/autor/", "/busca", "/search", "/page/", "/galeria", "/login","/embed",     
+    "/videos_e_fotos","/video/", "/blog/", "/platb/", "/live/", "/fotos/", "/album/"
 ]
 
 BLACKLIST_TERMS = [
     "cookies", "termos de uso", "política de privacidade",
-    "assine", "newsletter", "cadastre-se",
+    "assine", "newsletter", "cadastre-se", "media player"
 ]
 
 METADATA_PATTERNS = [
@@ -92,6 +93,21 @@ class WaybackScraperPipeline:
         await self.db.commit()
 
     # ── CDX Discovery (paralelo) ─────────────────────────────────────────────
+
+    async def url_ja_visitada(self, url: str) -> bool:
+        url_hash = hashlib.md5(url.encode()).hexdigest()
+        async with self.db.execute(
+            "SELECT 1 FROM visited_urls WHERE url_hash = ?", (url_hash,)
+        ) as cur:
+            return await cur.fetchone() is not None
+
+    async def marcar_url_visitada(self, url: str):
+        url_hash = hashlib.md5(url.encode()).hexdigest()
+        await self.db.execute(
+            "INSERT OR IGNORE INTO visited_urls (url_hash, visited_at) VALUES (?, datetime('now'))",
+            (url_hash,)
+        )
+        await self.db.commit()
 
     async def get_cdx_snapshots_trimestre(
         self,
@@ -178,6 +194,9 @@ class WaybackScraperPipeline:
 
         if any(p in original_url for p in BLOCKED_URL_PATTERNS):
             return
+        
+        if await self.url_ja_visitada(original_url):
+            return
 
         wm_url  = f"http://web.archive.org/web/{timestamp}id_/{original_url}"
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
@@ -213,6 +232,8 @@ class WaybackScraperPipeline:
                 if attempt < 2:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 1.0))
 
+        await self.marcar_url_visitada(original_url)
+
     # ── Filtros de qualidade ─────────────────────────────────────────────────
 
     def categorizar_tamanho(self, char_count: int) -> str:
@@ -228,7 +249,7 @@ class WaybackScraperPipeline:
         if not paragrafos:
             return False
         media = sum(len(p.split()) for p in paragrafos) / len(paragrafos)
-        return media >= 5
+        return media >= 10
 
     def has_metadata_pattern(self, texto: str) -> bool:
         return any(re.search(p, texto, re.MULTILINE) for p in METADATA_PATTERNS)
@@ -417,4 +438,4 @@ if __name__ == "__main__":
         target_domains=dominios,
         max_concurrent_requests=5,
     )
-    asyncio.run(pipeline.run(max_test_urls=500))
+    asyncio.run(pipeline.run())
