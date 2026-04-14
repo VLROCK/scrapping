@@ -17,7 +17,7 @@ from langdetect.lang_detect_exception import LangDetectException
 
 DetectorFactory.seed = 0
 
-DB_PATH = "data/dataset.db"
+DB_PATH = "data/dataset_informacional.db"
 
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/",
@@ -127,7 +127,7 @@ class WaybackScraperPipeline:
             "fl":     "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
             "collapse": "urlkey",
-            "limit":  "30",  # 8 × 4 trimestres × 12 anos = 384 por domínio
+            "limit":  "1",  # 8 × 4 trimestres × 12 anos = 384 por domínio
         }
 
         async with self.cdx_semaphore:
