@@ -22,7 +22,7 @@ DB_PATH = "data/dataset.db"
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/",
     "/autor/", "/busca", "/search", "/page/", "/galeria", "/login","/embed",     
-    "/videos_e_fotos","/video/", "/blog/", "/platb/", "/live/", "/fotos/", "/album/"
+    "/videos_e_fotos","/video/", "/blog/", "/platb/", "/live/", "/fotos/", "/album/", "/enquete/", "/blogs/",
 ]
 
 BLACKLIST_TERMS = [
