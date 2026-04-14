@@ -28,6 +28,10 @@ BLOCKED_URL_PATTERNS = [
     "/entrevista", "/coluna", "/noticia", "/reportagem"
 ]
 
+URL_CERTO = [
+    "/ficcao-e-poesia/"
+]
+
 BLACKLIST_TERMS = [
     "cookies", "termos de uso", "política de privacidade",
     "assine", "newsletter", "cadastre-se", "media player"
@@ -130,11 +134,14 @@ class LiveScraperPipeline:
                         
                         for link in encontrados:
                             # Se for outro sitemap, adiciona na fila
+                            link = link.replace('<![CDATA[', '').replace(']]>', '').strip()
                             if link.endswith('.xml'):
                                 sitemaps_para_visitar.append(link)
                             # Se for uma página normal, adiciona nos artigos
                             elif domain in link and not any(lixo in link for lixo in BLOCKED_URL_PATTERNS):
-                                links_artigos.add(link)
+                                if any(certo in link for certo in URL_CERTO):
+                                    links_artigos.add(link)
+
                                 
             except Exception:
                 pass # Ignora sitemaps que derem erro e tenta o próximo
@@ -143,11 +150,24 @@ class LiveScraperPipeline:
         return list(links_artigos)
 
     # ── Fase 2 e 3: Extração de Texto ao Vivo ────────────────────────────────
+    # ── Fase 2 e 3: Extração de Texto ao Vivo ────────────────────────────────
     async def fetch_and_process_live(self, session: aiohttp.ClientSession, url: str):
-        if self.tempo_esgotado() or await self.url_ja_visitada(url):
+        if self.tempo_esgotado():
             return
 
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+        # Headers mais complexos para simular um navegador humano real e driblar o Cloudflare
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "none",
+            "Sec-Fetch-User": "?1"
+        }
+
+        print(f" -> Batendo na porta: {url}")
 
         async with self.semaphore:
             for attempt in range(3):
@@ -158,16 +178,26 @@ class LiveScraperPipeline:
                             detected = from_bytes(html_bytes).best()
                             html_str = str(detected) if detected else html_bytes.decode("utf-8", errors="replace")
                             
+                            # Manda para o nosso Raio-X
                             await self.process_text(html_str, url)
+                            await self.marcar_url_visitada(url)
                             return
-                        elif response.status in [403, 404]:
-                            return # Página não existe mais ou bloqueou
-                except Exception:
-                    pass
+                            
+                        else:
+                            # AGORA NENHUM ERRO ESCAPA! Vai imprimir qualquer código que não seja 200.
+                            print(f"[HTTP {response.status}] O site bloqueou o robô: {url}")
+                            
+                            # Se for bloqueio forte, nem adianta tentar de novo
+                            if response.status in [403, 404, 406, 503]:
+                                return 
+                            
+                except Exception as e:
+                    print(f"[Erro de Código/Rede] Falha em {url}: {str(e)}")
+                    
                 if attempt < 2:
-                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 1.0))
-
-        await self.marcar_url_visitada(url)
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0.5, 1.5))
+            
+            print(f"[Desistência] Esgotou as 3 tentativas para: {url}")
 
     # ── Filtros e Limpeza (Mantidos do seu código) ───────────────────────────
     def categorizar_tamanho(self, char_count: int) -> str:
@@ -217,70 +247,63 @@ class LiveScraperPipeline:
             html_str, url=original_url, target_language="pt",
             include_comments=False, include_tables=False, include_links=False
         )
-        
-        if not extract_data or not extract_data.get('text'):
-            print(f"[Lixo] Sem texto útil: {original_url}")
+
+        # ← .text em vez de .get('text')
+        if not extract_data or not extract_data.text:
             return
 
-        texto_limpo = self.limpar_residuos(extract_data['text'])
-        char_count = len(texto_limpo)
-        
+        texto_limpo = self.limpar_residuos(extract_data.text)
+        char_count  = len(texto_limpo)
+
         categoria = self.categorizar_tamanho(char_count)
-        if categoria == "Descartar": 
-            print(f"[Lixo] Tamanho ruim ({char_count} chars): {original_url}")
+        if categoria == "Descartar":
             return
 
-        # --- AQUI COMEÇA O RAIO-X DOS FILTROS ---
-        if any(term in texto_limpo.lower() for term in BLACKLIST_TERMS): 
-            print(f"[Lixo] Caiu na Blacklist (Ex: Paywall/Assine): {original_url}")
+        if any(term in texto_limpo.lower() for term in BLACKLIST_TERMS):
             return
-            
-        if any(re.search(p, texto_limpo, re.MULTILINE) for p in METADATA_PATTERNS): 
-            print(f"[Lixo] Sujeira de Metadados: {original_url}")
+        if any(re.search(p, texto_limpo, re.MULTILINE) for p in METADATA_PATTERNS):
             return
-            
-        if texto_limpo.count("\ufffd") > 10: 
+        if texto_limpo.count("\ufffd") > 10:
             return
-            
-        # Suavizei o filtro de parágrafos para literatura (de 10 para 5)
-        paragrafos = [p for p in texto_limpo.split('\n') if p.strip()]
-        if not paragrafos or (sum(len(p.split()) for p in paragrafos) / len(paragrafos)) < 5:
-            print(f"[Lixo] Poucas palavras por parágrafo (Diálogo/Poesia/Lista): {original_url}")
+        if not self.is_textual_article(texto_limpo):   # ← usa o método
             return
-
         if not self.is_literary_tone(texto_limpo):
-            print(f"[Lixo] O Crítico barrou (Parece Resenha/Opinião): {original_url}")
             return
-        # ----------------------------------------
 
         try:
-            if char_count > 200 and detect(texto_limpo) != 'pt': return
-        except LangDetectException: return
+            if char_count > 200 and detect(texto_limpo) != 'pt':
+                return
+        except LangDetectException:
+            return
 
         texto_hash = hashlib.md5(texto_limpo.encode('utf-8')).hexdigest()
-        if texto_hash in self.seen_hashes: return
+        if texto_hash in self.seen_hashes:
+            return
         self.seen_hashes.add(texto_hash)
 
-        data_publicacao = extract_data.get('date', 'Desconhecida')[:4] if extract_data.get('date') else 'Desconhecida'
+        # ← .date em vez de .get('date')
+        data_pub = (extract_data.date or '')[:4] or 'Desconhecida'
+        if data_pub == 'Descon':  # fatia [:4] de 'Desconhecida'
+            data_pub = 'Desconhecida'
         ano_url = re.search(r'/([12][0-9]{3})/', original_url)
-        if ano_url and data_publicacao == 'Desconhecida':
-            data_publicacao = ano_url.group(1)
+        if ano_url and data_pub == 'Desconhecida':
+            data_pub = ano_url.group(1)
 
         await self.save_record({
-            "text_id": str(uuid.uuid4()),
-            "content": texto_limpo,
-            "label": 0,
-            "broad_area": "Literária",
-            "specific_theme": "Ficção Contemporânea",
-            "char_count": char_count,
-            "word_count": len(texto_limpo.split()),
-            "size_category": categoria,
-            "creation_date": data_publicacao,
-            "source_url": original_url,
-            "source_name": urlparse(original_url).hostname,
-            "content_hash": texto_hash,
+            "text_id":        str(uuid.uuid4()),
+            "content":        texto_limpo,
+            "label":          0,
+            "broad_area":     "Literária",
+            "specific_theme": None,
+            "char_count":     char_count,
+            "word_count":     len(texto_limpo.split()),
+            "size_category":  categoria,
+            "creation_date":  data_pub,
+            "source_url":     original_url,
+            "source_name":    urlparse(original_url).hostname,
+            "content_hash":   texto_hash,
         })
-        print(f"[SALVO COM SUCESSO] {original_url} ({char_count} chars)")
+        print(f"[Salvo] {original_url} ({char_count} chars)")
 
     # ── Orquestrador ─────────────────────────────────────────────────────────
     async def run(self, max_test_urls: Optional[int] = None):
@@ -328,4 +351,4 @@ if __name__ == "__main__":
     pipeline = LiveScraperPipeline(target_domains=dominios, max_concurrent_requests=10)
     
     # Coloque max_test_urls=10 para um teste rápido, ou deixe None para baixar TUDO
-    asyncio.run(pipeline.run(max_test_urls=30))
+    asyncio.run(pipeline.run())
