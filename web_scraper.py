@@ -127,7 +127,7 @@ class WaybackScraperPipeline:
             "fl":     "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
             "collapse": "urlkey",
-            "limit":  "8",  # 8 × 4 trimestres × 12 anos = 384 por domínio
+            "limit":  "30",  # 8 × 4 trimestres × 12 anos = 384 por domínio
         }
 
         async with self.cdx_semaphore:
