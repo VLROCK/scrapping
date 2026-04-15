@@ -2,7 +2,7 @@ name: Web Scraping Pipeline Reddit
 
 on:
   schedule:
-    - cron: '0 10 * * *'  # TODO DIA às 10:00 UTC
+    - cron: '0 20 * * *'  # TODO DIA às 10:00 UTC
   workflow_dispatch:
 
 permissions:
