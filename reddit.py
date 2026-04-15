@@ -1,0 +1,228 @@
+import hashlib
+import os
+import sqlite3
+import uuid
+from datetime import datetime, timezone
+from urllib.parse import urlparse
+
+from datasets import load_dataset
+
+# 1. A sua Peneira (Lista de Subreddits em Português)
+# Você pode adicionar quantos quiser aqui. Use sempre letras minúsculas.
+SUBREDDITS_PT = {
+    "futebol": "Esportes",
+    "botecodoreddit": "Humor",
+    "mejulgue": "Fofocas",
+    "gambiarra": "Vida cotidiana",
+    "filmeseseries": "Cultura pop (filmes, séries, jogos)",
+    "musicabr": "Cultura pop (filmes, séries, jogos)",
+
+    "brasil": "Política",
+    "conversas": "Vida cotidiana",
+    "desabafos": "Desabafos",
+    "eusouobabaca": "Histórias pessoais",
+    "perguntereddit": "Conselhos",
+    "relatosdoreddit": "Histórias pessoais",
+    "opiniaoimpopular": "Teorias",
+    "relacionamentos": "Relacionamentos",
+    "sexualidade": "Relacionamentos",
+
+    "antitrampo": "Trabalho",
+    "investimentos": "Finanças",
+    "farialimabets": "Finanças",
+    "golpe": "Reclamações e avaliações",
+    "conselhodecarreira": "Trabalho",
+    "empreendedorismo": "Trabalho",
+
+    "brdev": "Tecnologia",
+    "programacao": "Tecnologia",
+    "computadores": "Tecnologia",
+    "hardwarebrasil": "Tecnologia",
+
+    "idiomas": "Educação",
+    "livros": "Cultura pop (filmes, séries, jogos)",
+    "filosofia": "Teorias",
+    "biologiabrasil": "Educação",
+    "psicologiabr": "Saúde",
+    "direito": "Educação",
+    "conselhoslegais": "Conselhos",
+
+    "estudosbr": "Educação",
+    "enem": "Educação",
+    "concursospublicos": "Educação",
+    "faculdadebr": "Educação",
+    "usp": "Educação",
+    "filosofiabar": "Educação",
+    "professoresbr": "Trabalho",
+
+    "saopaulo": "Vida cotidiana",
+    "riodejaneiro": "Vida cotidiana",
+    "brasilia": "Vida cotidiana",
+    "curitiba": "Vida cotidiana",
+    "belohorizonte": "Vida cotidiana",
+    "recife": "Vida cotidiana",
+    "fortaleza": "Vida cotidiana",
+    "riograndedosul": "Vida cotidiana",
+    "parana": "Vida cotidiana",
+
+    "foradecasa": "Viagens",
+    "viagens": "Viagens",
+}
+
+
+DB_PATH = "data/dataset_social.db"
+SCHEMA_PATH = "schema.sql"
+COMMIT_BATCH_SIZE = 100
+
+
+def categorizar_tamanho(char_count: int) -> str:
+    if 100 <= char_count <= 600:
+        return "Curto"
+    if 601 <= char_count < 2501:
+        return "Médio"
+    if 2501 <= char_count < 5000:
+        return "Médio-Longo"
+    if 5000 <= char_count <= 30000:
+        return "Longo"
+    if char_count > 30000:
+        return "Muito Longo"
+    return "Descartar"
+
+
+def init_db() -> sqlite3.Connection:
+    os.makedirs("data", exist_ok=True)
+    conn = sqlite3.connect(DB_PATH)
+    with open(SCHEMA_PATH, "r", encoding="utf-8") as schema_file:
+        conn.executescript(schema_file.read())
+    conn.commit()
+    return conn
+
+
+def save_record(conn: sqlite3.Connection, record: dict) -> None:
+    conn.execute(
+        """INSERT OR IGNORE INTO texts
+           (text_id, content, label, broad_area, specific_theme,
+            char_count, word_count, size_category, creation_date,
+            source_url, source_name, content_hash)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+        (
+            record["text_id"],
+            record["content"],
+            record["label"],
+            record["broad_area"],
+            record["specific_theme"],
+            record["char_count"],
+            record["word_count"],
+            record["size_category"],
+            record["creation_date"],
+            record["source_url"],
+            record["source_name"],
+            record["content_hash"],
+        ),
+    )
+
+
+def extrair_ano(created_utc) -> str:
+    if created_utc is None:
+        return ""
+    try:
+        if isinstance(created_utc, (int, float)):
+            timestamp = float(created_utc)
+            if timestamp > 1e12:
+                timestamp /= 1000.0
+            return str(datetime.fromtimestamp(timestamp, tz=timezone.utc).year)
+
+        created_str = str(created_utc).strip()
+        if not created_str:
+            return ""
+
+        if created_str.isdigit():
+            timestamp = float(created_str)
+            if timestamp > 1e12:
+                timestamp /= 1000.0
+            return str(datetime.fromtimestamp(timestamp, tz=timezone.utc).year)
+
+        if len(created_str) >= 4 and created_str[:4].isdigit():
+            return created_str[:4]
+    except (ValueError, OSError, OverflowError):
+        return ""
+
+    return ""
+
+print("Conectando ao dataset gigante em modo Streaming...")
+
+# 2. Carrega o dataset SEM baixar (streaming=True)
+# Nota: "train" é o nome padrão da divisão em 99% dos datasets do Hugging Face
+dataset = load_dataset("Avni2110/pushshift-reddit", split="train", streaming=True)
+
+conn = init_db()
+textos_salvos = 0
+quantidade_desejada = 5  # Quantos textos você quer capturar antes de parar?
+textos_analisados = 0
+
+print("Iniciando a garimpagem. Isso pode levar alguns minutos...\n")
+
+# 3. O Trator: Lê linha por linha direto da nuvem
+for linha in dataset:
+    textos_analisados += 1
+    
+    # Pega o nome do subreddit da linha atual (converte pra minúsculo para garantir)
+    subreddit_atual = str(linha.get('subreddit', '')).lower()
+    
+    # Se o subreddit estiver na nossa lista, nós salvamos!
+    if subreddit_atual in SUBREDDITS_PT:
+        
+        # Pega o texto do comentário (no Reddit geralmente chama 'body' ou 'selftext')
+        texto = linha.get("body", "") or linha.get("selftext", "")
+        texto_limpo = str(texto).strip()
+        tema = SUBREDDITS_PT[subreddit_atual]
+        
+        # Ignora comentários apagados ou vazios
+        if texto_limpo and texto_limpo not in ["[deleted]", "[removed]"] and len(texto_limpo) > 50:
+            char_count = len(texto_limpo)
+            categoria = categorizar_tamanho(char_count)
+            if categoria == "Descartar":
+                continue
+
+            word_count = len(texto_limpo.split())
+            permalink = linha.get("permalink", "")
+            if permalink:
+                original_url = f"https://www.reddit.com{permalink}"
+            else:
+                original_url = f"https://www.reddit.com/r/{subreddit_atual}"
+
+            timestamp = extrair_ano(linha.get("created_utc"))
+            texto_hash = hashlib.md5(texto_limpo.encode("utf-8")).hexdigest()
+
+            save_record(conn, {
+                "text_id": str(uuid.uuid4()),
+                "content": texto_limpo,
+                "label": 0,
+                "broad_area": "Social",
+                "specific_theme": tema,
+                "char_count": char_count,
+                "word_count": word_count,
+                "size_category": categoria,
+                "creation_date": timestamp[:4],
+                "source_url": original_url,
+                "source_name": subreddit_atual,
+                "content_hash": texto_hash,
+            })
+            textos_salvos += 1
+
+            if textos_salvos % COMMIT_BATCH_SIZE == 0:
+                conn.commit()
+
+            # Printa o progresso a cada 100 achados
+            if textos_salvos % 100 == 0:
+                print(f"Salvos: {textos_salvos} | Analisados no total: {textos_analisados}")
+            
+    # Para o loop quando atingir a meta
+    if textos_salvos >= quantidade_desejada:
+        break
+
+conn.commit()
+conn.close()
+
+print(f"\nSucesso! {textos_salvos} textos em português salvos no banco '{DB_PATH}'.")
+print(f"O script leu {textos_analisados} linhas do servidor para achar esses textos.")
