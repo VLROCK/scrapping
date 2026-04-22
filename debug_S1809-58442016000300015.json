@@ -1,0 +1,838 @@
+{
+    "code": "S1809-58442016000300015",
+    "collection": "scl",
+    "doi": "10.1590/1809-5844201631",
+    "sent_wos": "True",
+    "version": "xml",
+    "citations": [],
+    "code_issue": "1809-584420160003",
+    "code_title": [
+        "1980-3508",
+        "1809-5844"
+    ],
+    "validated_scielo": "False",
+    "title": {
+        "code": "1809-5844",
+        "collection": "scl",
+        "created_at": "2024-09-24",
+        "issns": [
+            "1980-3508",
+            "1809-5844"
+        ],
+        "processing_date": "2024-09-24",
+        "v10": [
+            {
+                "_": "br1.1"
+            }
+        ],
+        "v100": [
+            {
+                "_": "Intercom: Revista Brasileira de Ciências da Comunicação"
+            }
+        ],
+        "v117": [
+            {
+                "_": "nbr6023"
+            }
+        ],
+        "v140": [
+            {
+                "_": "Sociedade Brasileira de Estudos Interdisciplinares da Comunicação (INTERCOM)"
+            },
+            {
+                "_": "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq)"
+            },
+            {
+                "_": "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES)"
+            }
+        ],
+        "v150": [
+            {
+                "_": "Intercom, Rev. Bras. Ciênc. Comun."
+            }
+        ],
+        "v151": [
+            {
+                "_": "Intercom, Rev. Bras. Ciênc. Comun"
+            }
+        ],
+        "v20": [
+            {
+                "_": "083561-7"
+            }
+        ],
+        "v301": [
+            {
+                "_": "19840000"
+            }
+        ],
+        "v302": [
+            {
+                "_": "1"
+            }
+        ],
+        "v303": [
+            {
+                "_": "1"
+            }
+        ],
+        "v310": [
+            {
+                "_": "BR"
+            }
+        ],
+        "v320": [
+            {
+                "_": "SP"
+            }
+        ],
+        "v330": [
+            {
+                "_": "CT"
+            }
+        ],
+        "v340": [
+            {
+                "_": "B"
+            }
+        ],
+        "v35": [
+            {
+                "_": "ONLIN"
+            }
+        ],
+        "v350": [
+            {
+                "_": "es"
+            },
+            {
+                "_": "en"
+            },
+            {
+                "_": "pt"
+            }
+        ],
+        "v360": [
+            {
+                "_": "es"
+            },
+            {
+                "_": "en"
+            },
+            {
+                "_": "pt"
+            }
+        ],
+        "v380": [
+            {
+                "_": "T"
+            }
+        ],
+        "v400": [
+            {
+                "_": "1809-5844"
+            }
+        ],
+        "v435": [
+            {
+                "t": "PRINT",
+                "_": "1809-5844"
+            },
+            {
+                "t": "ONLIN",
+                "_": "1980-3508"
+            }
+        ],
+        "v440": [
+            {
+                "_": "COMUNICAÇÃO"
+            }
+        ],
+        "v441": [
+            {
+                "_": "Applied Social Sciences"
+            }
+        ],
+        "v450": [
+            {
+                "_": "DOAJ - Directory of Open Access Journal"
+            },
+            {
+                "_": "Latindex -Sistema Regional de Información en Línea para Revistas Científicas de América Latina, el Caribe, España  y Portugal."
+            },
+            {
+                "_": "Public Knowledge Project"
+            },
+            {
+                "_": "Institutional Archieves Registry"
+            },
+            {
+                "_": "Revcom  - Coleção Eletrônica de Revistas de Ciências da Comunicação-Portcom/Intercom"
+            }
+        ],
+        "v480": [
+            {
+                "_": "Sociedade Brasileira de Estudos Interdisciplinares da Comunicação (INTERCOM)"
+            }
+        ],
+        "v490": [
+            {
+                "_": "São Paulo"
+            }
+        ],
+        "v5": [
+            {
+                "_": "S"
+            }
+        ],
+        "v50": [
+            {
+                "_": "C"
+            }
+        ],
+        "v51": [
+            {
+                "a": "20120600",
+                "b": "C",
+                "_": ""
+            }
+        ],
+        "v541": [
+            {
+                "_": "BY"
+            }
+        ],
+        "v6": [
+            {
+                "_": "c"
+            }
+        ],
+        "v610": [
+            {
+                "_": "Boletim INTERCOM"
+            }
+        ],
+        "v62": [
+            {
+                "_": "Sociedade Brasileira de Estudos Interdisciplinares da Comunicação (INTERCOM)"
+            }
+        ],
+        "v63": [
+            {
+                "_": "AV. BRIG. LUÍS ANTÔNIO, 2.050 - CONJ. 36- BELA VISTA"
+            },
+            {
+                "_": "Zip code: 01318-912"
+            },
+            {
+                "_": "Phone and WhatsApp: (+55 11) 9.4178-8528"
+            }
+        ],
+        "v64": [
+            {
+                "_": "revistaintercom@intercom.org.br"
+            }
+        ],
+        "v66": [
+            {
+                "_": "art"
+            }
+        ],
+        "v67": [
+            {
+                "_": "na"
+            }
+        ],
+        "v68": [
+            {
+                "_": "interc"
+            }
+        ],
+        "v690": [
+            {
+                "_": "www.scielo.br"
+            }
+        ],
+        "v691": [
+            {
+                "_": "100000000000000000000000"
+            }
+        ],
+        "v692": [
+            {
+                "_": "https://revistas.intercom.org.br/index.php/revistaintercom"
+            }
+        ],
+        "v699": [
+            {
+                "_": "continuous"
+            }
+        ],
+        "v85": [
+            {
+                "_": "nd"
+            }
+        ],
+        "v854": [
+            {
+                "_": "COMMUNICATION"
+            }
+        ],
+        "v880": [
+            {
+                "_": "1809-5844"
+            }
+        ],
+        "v901": [
+            {
+                "l": "es",
+                "_": "Misión: Contribuir para la difusión del conocimiento científico y la reflexión plural sobre la Comunicación."
+            },
+            {
+                "l": "pt",
+                "_": "Contribuir para a difusão do conhecimento científico e a reflexão pluralista sobre Comunicação."
+            },
+            {
+                "l": "en",
+                "_": "To contribute to the dissemination of scientific knowledge and to a pluralistic reflection on Communication."
+            }
+        ],
+        "v930": [
+            {
+                "_": "INTERC"
+            }
+        ],
+        "v935": [
+            {
+                "_": "1980-3508"
+            }
+        ],
+        "v940": [
+            {
+                "_": "20120518"
+            }
+        ],
+        "v941": [
+            {
+                "_": "20240924"
+            }
+        ],
+        "v942": [
+            {
+                "_": "20120518"
+            }
+        ],
+        "v943": [
+            {
+                "_": "20241217"
+            }
+        ],
+        "v950": [
+            {
+                "_": "ECB"
+            }
+        ],
+        "v951": [
+            {
+                "_": "ECB"
+            }
+        ],
+        "v992": [
+            {
+                "_": "scl"
+            }
+        ]
+    },
+    "publication_year": "2016",
+    "publication_date": "2016-12",
+    "validated_wos": "False",
+    "document_type": "editorial",
+    "processing_date": "2017-01-03",
+    "created_at": "2017-01-03",
+    "article": {
+        "v70": [
+            {
+                "c": "São Bernardo do Campo",
+                "p": "Brasil",
+                "s": "SP",
+                "1": "Escola de Comunicação, Educação e Humanidades",
+                "_": "Universidade Metodista de São Paulo",
+                "i": "aff01",
+                "2": "Programa de Pós-Graduação em Comunicação Social"
+            },
+            {
+                "c": "Belé",
+                "p": "Brasil",
+                "s": "PA",
+                "1": "Instituto de Letras e Comunicação",
+                "_": "Universidade Federal do Pará",
+                "i": "aff02",
+                "2": "Programa de Pós-Graduação Comunicação, Cultura e Amazônia"
+            }
+        ],
+        "v30": [
+            {
+                "_": "Intercom, Rev. Bras. Ciênc. Comun."
+            }
+        ],
+        "code": "S1809-58442016000300015",
+        "v702": [
+            {
+                "_": "interc/v39n3/1809-5844-interc-39-3-0015.xml"
+            }
+        ],
+        "v240": [
+            {
+                "c": "São Bernardo do Campo",
+                "p": "BR",
+                "_": "Universidade Metodista de São Paulo",
+                "i": "aff01",
+                "s": "São Paulo"
+            },
+            {
+                "c": "Belém",
+                "p": "BR",
+                "_": "Universidade Federal do Pará",
+                "i": "aff02",
+                "s": "Pará"
+            }
+        ],
+        "v12": [
+            {
+                "l": "pt",
+                "_": "Aos leitores"
+            }
+        ],
+        "v700": [
+            {
+                "_": "2"
+            }
+        ],
+        "v435": [
+            {
+                "t": "ppub",
+                "_": "1809-5844"
+            },
+            {
+                "t": "epub",
+                "_": "1980-3508"
+            }
+        ],
+        "v709": [
+            {
+                "_": "text"
+            }
+        ],
+        "v91": [
+            {
+                "_": "20170103"
+            }
+        ],
+        "v708": [
+            {
+                "_": "1"
+            }
+        ],
+        "v992": [
+            {
+                "_": "scl"
+            }
+        ],
+        "v3": [
+            {
+                "_": "1809-5844-interc-39-3-0015.xml"
+            }
+        ],
+        "v2": [
+            {
+                "_": "S1809-5844(16)03900300015"
+            }
+        ],
+        "collection": "scl",
+        "v100": [
+            {
+                "_": "Intercom: Revista Brasileira de Ciências da Comunicação"
+            }
+        ],
+        "v65": [
+            {
+                "_": "20161200"
+            }
+        ],
+        "v32": [
+            {
+                "_": "3"
+            }
+        ],
+        "v71": [
+            {
+                "_": "ed"
+            }
+        ],
+        "v42": [
+            {
+                "_": "1"
+            }
+        ],
+        "v49": [
+            {
+                "_": "INTERC060"
+            }
+        ],
+        "v701": [
+            {
+                "_": "1"
+            }
+        ],
+        "v121": [
+            {
+                "_": "00015"
+            }
+        ],
+        "v40": [
+            {
+                "_": "pt"
+            }
+        ],
+        "v4": [
+            {
+                "_": "v39n3"
+            }
+        ],
+        "v10": [
+            {
+                "r": "ND",
+                "n": "Cicilia M. Krohling",
+                "1": "aff01",
+                "_": "",
+                "s": "Peruzzo"
+            },
+            {
+                "r": "ND",
+                "n": "Maria Ataide",
+                "1": "aff02",
+                "_": "",
+                "s": "Malcher"
+            }
+        ],
+        "v35": [
+            {
+                "_": "1809-5844"
+            }
+        ],
+        "v999": [
+            {
+                "_": "../bases-work/interc/interc"
+            }
+        ],
+        "v936": [
+            {
+                "o": "3",
+                "_": "",
+                "i": "1809-5844",
+                "y": "2016"
+            }
+        ],
+        "v880": [
+            {
+                "_": "S1809-58442016000300015"
+            }
+        ],
+        "v706": [
+            {
+                "_": "h"
+            }
+        ],
+        "v14": [
+            {
+                "l": "16",
+                "_": "",
+                "f": "15"
+            }
+        ],
+        "v705": [
+            {
+                "_": "S"
+            }
+        ],
+        "v882": [
+            {
+                "n": "3",
+                "_": "",
+                "v": "39"
+            }
+        ],
+        "v62": [
+            {
+                "_": "Sociedade Brasileira de Estudos Interdisciplinares da Comunicação (INTERCOM)"
+            }
+        ],
+        "v72": [
+            {
+                "_": "0"
+            }
+        ],
+        "v120": [
+            {
+                "_": "XML_1.0"
+            }
+        ],
+        "processing_date": "2017-01-03",
+        "v237": [
+            {
+                "_": "10.1590/1809-5844201631"
+            }
+        ],
+        "v31": [
+            {
+                "_": "39"
+            }
+        ],
+        "v38": [
+            {
+                "_": "ND"
+            }
+        ]
+    },
+    "applicable": "True",
+    "fulltexts": {
+        "html": {
+            "pt": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1809-58442016000300015&tlng=pt"
+        }
+    },
+    "issue": {
+        "code": "1809-584420160003",
+        "collection": "scl",
+        "issue_type": "regular",
+        "publication_year": "2016",
+        "publication_date": "2016-12",
+        "processing_date": "2016-12-19",
+        "issue": {
+            "v30": [
+                {
+                    "_": "Intercom, Rev. Bras. Ciênc. Comun."
+                }
+            ],
+            "code": "1809-584420160003",
+            "v130": [
+                {
+                    "_": "Intercom: Revista Brasileira de Ciências da Comunicação"
+                }
+            ],
+            "v930": [
+                {
+                    "_": "INTERC"
+                }
+            ],
+            "v151": [
+                {
+                    "_": "Intercom, Rev. Bras. Ciênc. Comun"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v85": [
+                {
+                    "_": "nd"
+                }
+            ],
+            "collection": "scl",
+            "v991": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v42": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v49": [
+                {
+                    "l": "pt",
+                    "c": "INTERC010",
+                    "t": "Artigos",
+                    "_": ""
+                },
+                {
+                    "l": "pt",
+                    "c": "INTERC020",
+                    "t": "Arena",
+                    "_": ""
+                },
+                {
+                    "l": "pt",
+                    "c": "INTERC040",
+                    "t": "Resenhas",
+                    "_": ""
+                },
+                {
+                    "l": "pt",
+                    "c": "INTERC060",
+                    "t": "Aos leitores",
+                    "_": ""
+                },
+                {
+                    "l": "pt",
+                    "c": "INTERC180",
+                    "t": "Entrevista - Diálogos Midiológicos 35",
+                    "_": ""
+                }
+            ],
+            "v935": [
+                {
+                    "_": "1980-3508"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "0"
+                }
+            ],
+            "v541": [
+                {
+                    "_": "BY-NC"
+                }
+            ],
+            "v122": [
+                {
+                    "_": "14"
+                }
+            ],
+            "v4": "v39n3",
+            "v35": [
+                {
+                    "_": "1809-5844"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/interc/interc"
+                }
+            ],
+            "v200": [
+                {
+                    "_": "0"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "1809-584420160003"
+                }
+            ],
+            "v480": [
+                {
+                    "_": "Sociedade Brasileira de Estudos Interdisciplinares da Comunicação (INTERCOM)"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "i"
+                }
+            ],
+            "v117": [
+                {
+                    "_": "nbr6023"
+                }
+            ],
+            "v435": [
+                {
+                    "t": "PRINT",
+                    "_": "1809-5844"
+                },
+                {
+                    "t": "ONLIN",
+                    "_": "1980-3508"
+                }
+            ],
+            "v48": [
+                {
+                    "h": "Sumario",
+                    "l": "es",
+                    "_": ""
+                },
+                {
+                    "h": "Sumário",
+                    "l": "pt",
+                    "_": ""
+                },
+                {
+                    "h": "Table of Contents",
+                    "l": "en",
+                    "_": ""
+                }
+            ],
+            "processing_date": "2016-12-19",
+            "v36": [
+                {
+                    "_": "20163"
+                }
+            ],
+            "v91": [
+                {
+                    "_": "20161219"
+                }
+            ],
+            "v43": [
+                {
+                    "l": "es",
+                    "c": "São Paulo",
+                    "t": "Intercom, Rev. Bras. Ciênc. Comun.",
+                    "v": "vol.39",
+                    "n": "no.3",
+                    "m": "sept./dic.",
+                    "_": "",
+                    "a": "2016"
+                },
+                {
+                    "l": "pt",
+                    "c": "São Paulo",
+                    "t": "Intercom, Rev. Bras. Ciênc. Comun.",
+                    "v": "vol.39",
+                    "n": "no.3",
+                    "m": "set./dez.",
+                    "_": "",
+                    "a": "2016"
+                },
+                {
+                    "l": "en",
+                    "c": "São Paulo",
+                    "t": "Intercom, Rev. Bras. Ciênc. Comun.",
+                    "v": "vol.39",
+                    "n": "no.3",
+                    "m": "Sept./Dec.",
+                    "_": "",
+                    "a": "2016"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "39"
+                }
+            ]
+        },
+        "code_title": [
+            "1980-3508",
+            "1809-5844"
+        ],
+        "created_at": "2016-12-19"
+    }
+}

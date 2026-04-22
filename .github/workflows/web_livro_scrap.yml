@@ -1,0 +1,52 @@
+name: Web Scraping Pipeline Autores
+
+on:
+  schedule:
+    - cron: '0 15 * * *'  # TODO DIA às 10:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrapping-dataset-db
+  cancel-in-progress: false
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install datasets
+
+      - name: Rodar scraper e logs
+        run: |
+          python web_livro_scrap.py | tee log_web_livro.txt
+
+      - name: Commit automático do banco
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+
+          git add "data/dataset_literariro_autores.db"
+
+          if git diff --cached --quiet; then
+            echo "Nada para commitar"
+            exit 0
+          fi
+
+          git commit -m "Atualiza dataset Web Livro automaticamente"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"

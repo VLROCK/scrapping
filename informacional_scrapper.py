@@ -38,6 +38,19 @@ METADATA_PATTERNS = [
     r'imagePath:',
     r'ordem:',
 ]
+# Padrões que indicam que o texto ensina o usuário a fazer algo
+INSTRUCTIONAL_PATTERNS = [
+    r'(?i)\bmodo de preparo\b',
+    r'(?i)\bingredientes\b',
+    r'(?i)\bpasso a passo\b',
+    r'(?i)\bcomo fazer\b',
+    r'(?i)\btutorial\b',
+    r'(?i)\b(passo|etapa) [1-9]\b', # "Passo 1", "Etapa 3"
+    r'(?i)\brendimento\b',
+    r'(?i)\btempo de preparo\b',
+    r'(?i)\bmateriais necess[áa]rios\b',
+    r'(?i)\bdicas?\b'
+]
 
 # Tempo máximo total — 5h para folgar no limite de 6h do GitHub Actions
 MAX_RUNTIME_SECONDS = 5 * 60 * 60
@@ -127,7 +140,7 @@ class WaybackScraperPipeline:
             "fl":     "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
             "collapse": "urlkey",
-            "limit":  "1",  # 8 × 4 trimestres × 12 anos = 384 por domínio
+            "limit":  "20",  # 8 × 4 trimestres × 12 anos = 384 por domínio
         }
 
         async with self.cdx_semaphore:
@@ -246,10 +259,20 @@ class WaybackScraperPipeline:
 
     def is_textual_article(self, texto: str) -> bool:
         paragrafos = [p for p in texto.split('\n') if p.strip()]
-        if not paragrafos:
+        # Um tutorial ou receita real precisa de pelo menos umas 6 linhas (título, intro, itens, passos)
+        if len(paragrafos) < 6:
             return False
+        # Reduzimos a exigência de tamanho de parágrafo porque listas de ingredientes são curtas
         media = sum(len(p.split()) for p in paragrafos) / len(paragrafos)
-        return media >= 3
+        return media >= 4
+
+    #def is_instructional(self, texto: str) -> bool:
+        """Verifica se o texto possui a densidade mínima de jargões de tutoriais/receitas."""
+        #pontuacao = sum(1 for pattern in INSTRUCTIONAL_PATTERNS if re.search(pattern, texto))
+        
+        # Exige que o texto tenha pelo menos 2 assinaturas diferentes para ser aprovado.
+        # Ex: Ter "Ingredientes" e "Modo de preparo", ou ter "Tutorial" e "Passo 1"
+       # return pontuacao >= 2
 
     def has_metadata_pattern(self, texto: str) -> bool:
         return any(re.search(p, texto, re.MULTILINE) for p in METADATA_PATTERNS)
@@ -325,6 +348,10 @@ class WaybackScraperPipeline:
             return
 
         if not self.is_textual_article(texto_limpo):
+            return
+        
+        if not self.is_instructional(texto_limpo):
+            # print(f"[Descartado] Não tem perfil de tutorial/receita: {original_url}")
             return
 
         char_count = len(texto_limpo)
@@ -434,7 +461,35 @@ if __name__ == "__main__":
         "mdsaude.com",
         "tuasaude.com",
         "dicasdemulher.com.br",
-        "catracalivre.com.br"
+        "catracalivre.com.br",
+
+        "fazfacil.com.br",      # Clássico absoluto de manutenção de casa, elétrica e bricolagem.
+        "tuacasa.com.br",       # Muito forte em tutoriais longos de decoração e DIY.
+        "vivadecora.com.br",    # Guias passo a passo de como montar, pintar e reformar móveis.
+        "leroymerlin.com.br",   # A seção de blog deles tem manuais rigorosos e estruturados.
+
+        # --- Programação, Engenharia de Software e Infraestrutura ---
+        "alura.com.br",         # O blog da Alura tem artigos extremamente didáticos e focados em "como fazer".
+        "devmedia.com.br",      # Acervo gigante de tutoriais de código. O Wayback Machine pega bem os artigos antigos não bloqueados.
+        "diolinux.com.br",      # Tutoriais densos de infraestrutura, formatação, Linux e setup passo a passo.
+        "macoratti.net",        # Repositório lendário e "raiz" de tutoriais de programação puros em PT-BR (ótimo para texto limpo).
+        "treinaweb.com.br",
+
+        # --- Artes Musicais e Teoria ---
+        "cifraclub.com.br",         # O blog tem tutoriais detalhados de como tocar instrumentos e guias de teoria musical.
+        "descomplicandoamusica.com", # Textos densos, altamente didáticos e estruturados sobre teoria musical e harmonia.
+
+        # --- Fotografia e Audiovisual ---
+        "fotografia-dg.com",        # Guias técnicos sobre iluminação, exposição, lentes e edição de imagem.
+        "resumofotografico.com",    # Tutoriais passo a passo sobre técnicas de fotografia e uso de equipamento.
+
+        # --- Artes Visuais, Desenho e Design ---
+        "clubedodesign.com",        # Tutoriais práticos de software (Photoshop, Illustrator) e conceitos de design.
+        "designerd.com.br",         # Dicas, processos criativos e guias práticos para ilustradores e criativos.
+        "esbocandoideias.com",      # Fortíssimo em tutoriais de desenho (anatomia, perspetiva, técnicas de sombreamento).
+
+        # --- Artesanato e Trabalhos Manuais ---
+        "revistaartesanato.com.br"
     ]
 
     pipeline = WaybackScraperPipeline(

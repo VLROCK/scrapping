@@ -1,0 +1,6307 @@
+{
+    "code": "S1806-00132016000400261",
+    "collection": "scl",
+    "version": "xml",
+    "publication_year": "2016",
+    "code_issue": "1806-001320160004",
+    "article": {
+        "v706": [
+            {
+                "_": "h"
+            }
+        ],
+        "v65": [
+            {
+                "_": "20161200"
+            }
+        ],
+        "v91": [
+            {
+                "_": "20170103"
+            }
+        ],
+        "v70": [
+            {
+                "_": "Universidade Estadual Paulista",
+                "s": "SP",
+                "p": "Brazil",
+                "1": "Faculdade de Odontologia de Araçatuba",
+                "i": "aff1",
+                "l": "1",
+                "c": "Araçatuba",
+                "2": "Departamento de Odontologia Infantil e Social"
+            }
+        ],
+        "v601": [
+            {
+                "_": "pt"
+            }
+        ],
+        "v702": [
+            {
+                "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+            }
+        ],
+        "v700": [
+            {
+                "_": "2"
+            }
+        ],
+        "v49": [
+            {
+                "_": "RDOR070"
+            }
+        ],
+        "v120": [
+            {
+                "_": "XML_1.0"
+            }
+        ],
+        "v14": [
+            {
+                "l": "265",
+                "_": "",
+                "f": "261"
+            }
+        ],
+        "v32": [
+            {
+                "_": "4"
+            }
+        ],
+        "v30": [
+            {
+                "_": "Rev. dor"
+            }
+        ],
+        "v62": [
+            {
+                "_": "Sociedade Brasileira para o Estudo da Dor"
+            }
+        ],
+        "v71": [
+            {
+                "_": "oa"
+            }
+        ],
+        "v999": [
+            {
+                "_": "../bases-work/rdor/rdor"
+            }
+        ],
+        "v709": [
+            {
+                "_": "article"
+            }
+        ],
+        "v85": [
+            {
+                "l": "en",
+                "_": "",
+                "k": "Dentists"
+            },
+            {
+                "l": "en",
+                "_": "",
+                "k": "Musculoskeletal disorders"
+            },
+            {
+                "l": "en",
+                "_": "",
+                "k": "Occupational diseases"
+            },
+            {
+                "l": "en",
+                "_": "",
+                "k": "Quality of life"
+            },
+            {
+                "l": "pt",
+                "_": "",
+                "k": "Distúrbios Osteomusculares"
+            },
+            {
+                "l": "pt",
+                "_": "",
+                "k": "Doenças Ocupacionais"
+            },
+            {
+                "l": "pt",
+                "_": "",
+                "k": "Qualidade de Vida"
+            },
+            {
+                "l": "pt",
+                "_": "",
+                "k": "Odontólogos"
+            }
+        ],
+        "v40": [
+            {
+                "_": "en"
+            }
+        ],
+        "v705": [
+            {
+                "_": "S"
+            }
+        ],
+        "v992": [
+            {
+                "_": "scl"
+            }
+        ],
+        "v100": [
+            {
+                "_": "Revista Dor"
+            }
+        ],
+        "v701": [
+            {
+                "_": "1"
+            }
+        ],
+        "v880": [
+            {
+                "_": "S1806-00132016000400261"
+            }
+        ],
+        "v112": [
+            {
+                "_": "20160520"
+            }
+        ],
+        "v38": [
+            {
+                "_": "TAB"
+            },
+            {
+                "_": "GRA"
+            }
+        ],
+        "v114": [
+            {
+                "_": "20161025"
+            }
+        ],
+        "v121": [
+            {
+                "_": "00261"
+            }
+        ],
+        "v936": [
+            {
+                "_": "",
+                "o": "4",
+                "y": "2016",
+                "i": "1806-0013"
+            }
+        ],
+        "v435": [
+            {
+                "_": "1806-0013",
+                "t": "ppub"
+            },
+            {
+                "_": "2317-6393",
+                "t": "epub"
+            }
+        ],
+        "code": "S1806-00132016000400261",
+        "v240": [
+            {
+                "_": "Universidade Estadual Paulista",
+                "p": "BR",
+                "i": "aff1"
+            }
+        ],
+        "v31": [
+            {
+                "_": "17"
+            }
+        ],
+        "v42": [
+            {
+                "_": "1"
+            }
+        ],
+        "v882": [
+            {
+                "_": "",
+                "n": "4",
+                "v": "17"
+            }
+        ],
+        "v2": [
+            {
+                "_": "S1806-0013(16)01700400261"
+            }
+        ],
+        "processing_date": "2017-01-03",
+        "v708": [
+            {
+                "_": "1"
+            }
+        ],
+        "v237": [
+            {
+                "_": "10.5935/1806-0013.20160085"
+            }
+        ],
+        "v83": [
+            {
+                "l": "en",
+                "_": "",
+                "a": "ABSTRACT  BACKGROUND AND OBJECTIVES: Quality of life has always been a human concern, especially nowadays when job market requirements are exposing dentists to stressing situations and adverse conditions, thus favoring the installation of several labor-related diseases. This study aimed at evaluating labor-related musculoskeletal disorders, painful symptoms and their relation with quality of life and the use of preventive measures by dentists.  METHODS: Study population was made up of dentists of the private network (n=64). Two self-applicable questionnaires were used being one to measure quality of life World Health Organization Quality of Life-bref and the other for musculoskeletal disorders.  RESULTS: Pain was more prevalent on neck and cervical spine (49.2%), followed by lumbar region (40%). With regard to quality of life, physical domain had higher mean scores (76.5%) followed by social relations domain (74.9%).  CONCLUSION: The region with higher prevalence of pain was neck and cervical spine and professionals with pain were not so happy with their quality of life."
+            },
+            {
+                "l": "pt",
+                "_": "",
+                "a": "RESUMO  JUSTIFICATIVA E OBJETIVOS: A qualidade de vida sempre foi uma preocupação do homem, especialmente nos últimos tempos em que as exigências do mercado de trabalho vêm expondo o profissional de odontologia a situações estressantes e condições adversas, favorecendo a instalação de diversas doenças decorrentes das atividades laborais. O objetivo deste estudo foi avaliar a presença de distúrbios osteomusculares relacionados ao trabalho; sintomas dolorosos e sua relação com qualidade de vida e o emprego de medida preventiva entre cirurgiões-dentistas.  MÉTODOS: A população de estudo foi composta por cirurgiões-dentistas da rede privada (n=64); dois questionários autoaplicáveis foram empregados, sendo um para mensurar qualidade de vida, World Health Organization Quality of Life-bref e o outro para distúrbios osteomusculares.  RESULTADOS: A região mais acometida por dores foi a do pescoço e da coluna cervical (49,2%), seguida pela região lombar (40%). No que se relaciona à qualidade de vida, o domínio físico apresentou a média de escores mais altos (76,5%) seguido do domínio relações sociais (74,9%).  CONCLUSÃO: A região com maior prevalência de sintomas dolorosos foi a do pescoço e coluna cervical; profissionais com dores apresentaram menor satisfação com sua qualidade de vida."
+            }
+        ],
+        "collection": "scl",
+        "v3": [
+            {
+                "_": "1806-0013-rdor-17-04-0261.xml"
+            }
+        ],
+        "v4": [
+            {
+                "_": "v17n4"
+            }
+        ],
+        "v12": [
+            {
+                "l": "en",
+                "_": "Musculoskeletal disorders and quality of life of dentists"
+            },
+            {
+                "l": "pt",
+                "_": "Distúrbios osteomusculares em cirurgiões-dentistas e qualidade de vida"
+            }
+        ],
+        "v35": [
+            {
+                "_": "1806-0013"
+            }
+        ],
+        "v10": [
+            {
+                "_": "",
+                "s": "Saliba",
+                "r": "ND",
+                "1": "aff1",
+                "n": "Tânia Adas"
+            },
+            {
+                "_": "",
+                "s": "Machado",
+                "r": "ND",
+                "1": "aff1",
+                "n": "Ana Carolina Bernardes"
+            },
+            {
+                "_": "",
+                "s": "Marquesi",
+                "r": "ND",
+                "1": "aff1",
+                "n": "Camila"
+            },
+            {
+                "_": "",
+                "s": "Garbin",
+                "r": "ND",
+                "1": "aff1",
+                "n": "Artênio José Ísper"
+            }
+        ],
+        "v72": [
+            {
+                "_": "35"
+            }
+        ]
+    },
+    "processing_date": "2017-01-03",
+    "validated_scielo": "False",
+    "doi": "10.5935/1806-0013.20160085",
+    "title": {
+        "code": "1806-0013",
+        "collection": "scl",
+        "created_at": "2018-09-19",
+        "issns": [
+            "2317-6393",
+            "1806-0013"
+        ],
+        "processing_date": "2018-09-19",
+        "v10": [
+            {
+                "_": "br1.1"
+            }
+        ],
+        "v100": [
+            {
+                "_": "Revista Dor"
+            }
+        ],
+        "v117": [
+            {
+                "_": "vancouv"
+            }
+        ],
+        "v140": [
+            {
+                "_": "Sociedade Brasileira para o Estudo da Dor (SBED)"
+            },
+            {
+                "_": "Cristália Produtos Químicos Farmacêuticos Ltda."
+            },
+            {
+                "_": "Zodiac Produtos Farmacêuticos S/A"
+            }
+        ],
+        "v150": [
+            {
+                "_": "Rev. dor"
+            }
+        ],
+        "v151": [
+            {
+                "_": "Rev. dor"
+            }
+        ],
+        "v20": [
+            {
+                "_": "098542-2"
+            }
+        ],
+        "v301": [
+            {
+                "_": "2003"
+            }
+        ],
+        "v302": [
+            {
+                "_": "1"
+            }
+        ],
+        "v303": [
+            {
+                "_": "1"
+            }
+        ],
+        "v310": [
+            {
+                "_": "BR"
+            }
+        ],
+        "v320": [
+            {
+                "_": "SP"
+            }
+        ],
+        "v330": [
+            {
+                "_": "CT"
+            }
+        ],
+        "v340": [
+            {
+                "_": "B"
+            }
+        ],
+        "v35": [
+            {
+                "_": "ONLIN"
+            }
+        ],
+        "v350": [
+            {
+                "_": "es"
+            },
+            {
+                "_": "en"
+            },
+            {
+                "_": "pt"
+            }
+        ],
+        "v360": [
+            {
+                "_": "es"
+            },
+            {
+                "_": "en"
+            },
+            {
+                "_": "pt"
+            }
+        ],
+        "v380": [
+            {
+                "_": "Q"
+            }
+        ],
+        "v400": [
+            {
+                "_": "1806-0013"
+            }
+        ],
+        "v435": [
+            {
+                "t": "PRINT",
+                "_": "1806-0013"
+            },
+            {
+                "t": "ONLIN",
+                "_": "2317-6393"
+            }
+        ],
+        "v440": [
+            {
+                "_": "MEDICINA"
+            },
+            {
+                "_": "FISIOPATOLOGIA DA DOR AGUDA E CRÔNICA"
+            },
+            {
+                "_": "TERAPÊUTICA DA DOR AGUDA E CRÔNICA"
+            }
+        ],
+        "v441": [
+            {
+                "_": "Health Sciences"
+            }
+        ],
+        "v450": [
+            {
+                "_": "LILACS"
+            }
+        ],
+        "v480": [
+            {
+                "_": "Sociedade Brasileira para o Estudo da Dor"
+            }
+        ],
+        "v490": [
+            {
+                "_": "São Paulo"
+            }
+        ],
+        "v5": [
+            {
+                "_": "S"
+            }
+        ],
+        "v50": [
+            {
+                "_": "C"
+            }
+        ],
+        "v51": [
+            {
+                "a": "20110000",
+                "c": "20180500",
+                "b": "C",
+                "d": "D",
+                "_": ""
+            }
+        ],
+        "v541": [
+            {
+                "_": "BY"
+            }
+        ],
+        "v6": [
+            {
+                "_": "c"
+            }
+        ],
+        "v62": [
+            {
+                "_": "Sociedade Brasileira para o Estudo da Dor"
+            }
+        ],
+        "v63": [
+            {
+                "_": "Av. Conselheiro Rodrigues Alves, 937 cj 2"
+            },
+            {
+                "_": "04014-012 São Paulo SP Brasil"
+            },
+            {
+                "_": "Tel.: (55 11) 5904 3959"
+            },
+            {
+                "_": "Fax: (55 11) 5904 2881"
+            }
+        ],
+        "v64": [
+            {
+                "_": "dor@dor.org.br"
+            }
+        ],
+        "v66": [
+            {
+                "_": "art"
+            }
+        ],
+        "v67": [
+            {
+                "_": "na"
+            }
+        ],
+        "v68": [
+            {
+                "_": "rdor"
+            }
+        ],
+        "v690": [
+            {
+                "_": "www.scielo.br"
+            }
+        ],
+        "v691": [
+            {
+                "_": "100000000000000000000000"
+            }
+        ],
+        "v692": [
+            {
+                "_": "http://www.sgponline.com.br/dor/sgp/"
+            }
+        ],
+        "v699": [
+            {
+                "_": "undefined"
+            }
+        ],
+        "v710": [
+            {
+                "_": "BrJP"
+            }
+        ],
+        "v85": [
+            {
+                "_": "decs"
+            }
+        ],
+        "v854": [
+            {
+                "_": "CLINICAL NEUROLOGY"
+            },
+            {
+                "_": "CRITICAL CARE MEDICINE"
+            },
+            {
+                "_": "NEUROSCIENCES"
+            }
+        ],
+        "v880": [
+            {
+                "_": "1806-0013"
+            }
+        ],
+        "v901": [
+            {
+                "l": "es",
+                "_": "Difundir los estudios sobre la fisiopatologia y el tratamiento del color agudo o crónico en humanos y animales mediante la publicación de artículos originales y de revisión e informes de casos."
+            },
+            {
+                "l": "pt",
+                "_": "Divulgar estudos sobre a fisiopatologia e a terapêutica da dor aguda ou crônica em seres humanos e em animais, pela publicação de artigos originais e de revisão e relatos de casos."
+            },
+            {
+                "l": "en",
+                "_": "To disseminate studies on the pathophysiology and treatment of acute or chronic pain in humans and animals by publishing original and review articles and case reports."
+            }
+        ],
+        "v930": [
+            {
+                "_": "RDOR"
+            }
+        ],
+        "v935": [
+            {
+                "_": "2317-6393"
+            }
+        ],
+        "v940": [
+            {
+                "_": "20110831"
+            }
+        ],
+        "v941": [
+            {
+                "_": "20180919"
+            }
+        ],
+        "v942": [
+            {
+                "_": "20110831"
+            }
+        ],
+        "v943": [
+            {
+                "_": "20180919"
+            }
+        ],
+        "v950": [
+            {
+                "_": "EMS"
+            }
+        ],
+        "v951": [
+            {
+                "_": "EMS"
+            }
+        ],
+        "v992": [
+            {
+                "_": "scl"
+            }
+        ]
+    },
+    "citations": [
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100001"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "19950000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "The World Health Organization Quality of Life Assessment : position paper from the World Health Organization"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100001",
+            "v514": [
+                {
+                    "l": "1409",
+                    "_": "",
+                    "f": "1403"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "5"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "41"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "1403-9"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "10"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "1995"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Soc Sci"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Med"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100002"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20100000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100002",
+            "v514": [
+                {
+                    "l": "118",
+                    "_": "",
+                    "f": "111"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "6"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "15"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "111-8"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2010"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Doenças de caráter ocupacional em cirurgiões-dentistas - um estudo de caso sobre cifoescoliose"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Pietrobon",
+                    "r": "ND",
+                    "n": "L"
+                },
+                {
+                    "_": "",
+                    "s": "Regis Filho",
+                    "r": "ND",
+                    "n": "GI"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "RFO, Passo Fundo"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100003"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20060000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100003",
+            "v514": [
+                {
+                    "l": "38",
+                    "_": "",
+                    "f": "27"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "7"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "28"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "27-38"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2006"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Contribuição dos domínios físico, social, psicológico e ambiental para a qualidade de vida global de idosos"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Pereira",
+                    "r": "ND",
+                    "n": "RJ"
+                },
+                {
+                    "_": "",
+                    "s": "Cotta",
+                    "r": "ND",
+                    "n": "RM"
+                },
+                {
+                    "_": "",
+                    "s": "Franceschini",
+                    "r": "ND",
+                    "n": "SC"
+                },
+                {
+                    "_": "",
+                    "s": "Ribeiro",
+                    "r": "ND",
+                    "n": "RC"
+                },
+                {
+                    "_": "",
+                    "s": "Sampaio",
+                    "r": "ND",
+                    "n": "RF"
+                },
+                {
+                    "_": "",
+                    "s": "Priore",
+                    "r": "ND",
+                    "n": "SE"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Psiquiatr Rio Gd Sul"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100004"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20070000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100004",
+            "v514": [
+                {
+                    "l": "241",
+                    "_": "",
+                    "f": "236"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "8"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "15"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "236-41"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2007"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "4"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Qualidade de vida e trabalho o que pensam os enfermeiros da rede básica de saúde"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Costa",
+                    "r": "ND",
+                    "n": "MS"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "MJ"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Enferm UERJ"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100005"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20080000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100005",
+            "v514": [
+                {
+                    "l": "68",
+                    "_": "",
+                    "f": "65"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "9"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "37"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "65-8"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2008"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "5"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Qualidade de vida do cirurgião-dentista"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Carvalho",
+                    "r": "ND",
+                    "n": "FS"
+                },
+                {
+                    "_": "",
+                    "s": "Maia Júnior",
+                    "r": "ND",
+                    "n": "AF"
+                },
+                {
+                    "_": "",
+                    "s": "Carvalho",
+                    "r": "ND",
+                    "n": "CA"
+                },
+                {
+                    "_": "",
+                    "s": "Sales Peres",
+                    "r": "ND",
+                    "n": "A"
+                },
+                {
+                    "_": "",
+                    "s": "Bastos",
+                    "r": "ND",
+                    "n": "JR"
+                },
+                {
+                    "_": "",
+                    "s": "Sales Peres",
+                    "r": "ND",
+                    "n": "SH"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Odontol UNESP"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100006"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20010000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100006",
+            "v514": [
+                {
+                    "l": "99",
+                    "_": "",
+                    "f": "95"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "10"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "36"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "95-9"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2001"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "6"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Qualidade de vida no trabalho a empresa holística e a ecologia empresarial"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Régis Filho",
+                    "r": "ND",
+                    "n": "GI"
+                },
+                {
+                    "_": "",
+                    "s": "Lopes",
+                    "r": "ND",
+                    "n": "MC"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Admin"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100007"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20070000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100007",
+            "v514": [
+                {
+                    "l": "26",
+                    "_": "",
+                    "f": "21"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "11"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "12"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "21-6"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2007"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "7"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Qualidade de vida no trabalho em serviços públicos de saúde- um estudo de caso"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Bittencourt",
+                    "r": "ND",
+                    "n": "MS"
+                },
+                {
+                    "_": "",
+                    "s": "Calvo",
+                    "r": "ND",
+                    "n": "MC"
+                },
+                {
+                    "_": "",
+                    "s": "Regis Filho",
+                    "r": "ND",
+                    "n": "GI"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "RFO, Passo Fundo"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100008"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20110000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100008",
+            "v514": [
+                {
+                    "l": "150",
+                    "_": "",
+                    "f": "141"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "12"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "14"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "141-50"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2011"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "8"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Fatores associados à sintomatologia dolorosa e qualidade de vida em odontólogos da cidade de Teresina - PI"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Carmo",
+                    "r": "ND",
+                    "n": "IC"
+                },
+                {
+                    "_": "",
+                    "s": "Soares",
+                    "r": "ND",
+                    "n": "EA"
+                },
+                {
+                    "_": "",
+                    "s": "Virtuoso Júnior",
+                    "r": "ND",
+                    "n": "JS"
+                },
+                {
+                    "_": "",
+                    "s": "Guerra",
+                    "r": "ND",
+                    "n": "RO"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Bras Epidemiol"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100009"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20130000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100009",
+            "v514": [
+                {
+                    "l": "154",
+                    "_": "",
+                    "f": "147"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "13"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "13"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "147-54"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2013"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "9"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Saúde do trabalhador na odontologia o cirurgião-dentista em foco. Pesq Bras Odontoped Clíni Integr"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Saliba",
+                    "r": "ND",
+                    "n": "NA"
+                },
+                {
+                    "_": "",
+                    "s": "Moimaz",
+                    "r": "ND",
+                    "n": "SA"
+                },
+                {
+                    "_": "",
+                    "s": "Prado",
+                    "r": "ND",
+                    "n": "RL"
+                },
+                {
+                    "_": "",
+                    "s": "Rovida",
+                    "r": "ND",
+                    "n": "TA"
+                },
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "CA"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "João Pessoa"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100010"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "19460000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "WHO"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100010",
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "14"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "1946"
+                }
+            ],
+            "collection": "scl",
+            "v71": [
+                {
+                    "_": "book"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v66": [
+                {
+                    "_": "Genebra"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v62": [
+                {
+                    "_": "WHO"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "10"
+                }
+            ],
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v18": [
+                {
+                    "_": "Constitution of the World Health Organization. Basic Documents"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100011"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20030000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100011",
+            "v514": [
+                {
+                    "l": "220",
+                    "_": "",
+                    "f": "216"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "15"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "216-20"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2003"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "11"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Ocorrência de doenças osteoarticulares em cirurgiões-dentistas"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Salvador Filho",
+                    "r": "ND",
+                    "n": "JR"
+                },
+                {
+                    "_": "",
+                    "s": "Vasconcelos",
+                    "r": "ND",
+                    "n": "MA"
+                },
+                {
+                    "_": "",
+                    "s": "Carvalho",
+                    "r": "ND",
+                    "n": "RL"
+                },
+                {
+                    "_": "",
+                    "s": "Pinheiro",
+                    "r": "ND",
+                    "n": "JT"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Int J Dent"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100012"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20010000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "Brasil"
+                },
+                {
+                    "_": "Ministério da Saúde"
+                },
+                {
+                    "_": "Departamento de Ações"
+                },
+                {
+                    "_": "Programáticas e Estratégicas"
+                },
+                {
+                    "_": "Área técnica de Saúde do trabalhador"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100012",
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "16"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2001"
+                }
+            ],
+            "collection": "scl",
+            "v71": [
+                {
+                    "_": "book"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v66": [
+                {
+                    "_": "Brasília"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v62": [
+                {
+                    "_": "Ministério da Saúde"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "12"
+                }
+            ],
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v18": [
+                {
+                    "_": "Lesões por esforços repetitivos (LER), distúrbios osteomusculares relacionados ao trabalho (DORT), dor relacionada ao trabalho: protocolos de atenção integral à Saúde do trabalhador de complexidade diferenciada"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100013"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20060000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100013",
+            "v514": [
+                {
+                    "l": "86",
+                    "_": "",
+                    "f": "71"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "17"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "34"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "71-86"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2006"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "13"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Desordens musculoesqueléticas em cirurgioes-dentistas"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Graça",
+                    "r": "ND",
+                    "n": "CC"
+                },
+                {
+                    "_": "",
+                    "s": "Araújo",
+                    "r": "ND",
+                    "n": "TM"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "CE"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Sitientibus"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100014"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20080000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100014",
+            "v514": [
+                {
+                    "l": "56",
+                    "_": "",
+                    "f": "50"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "18"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "50-6"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2008"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "14"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Prevalencia de desordens musculoesqueléticas em odontologistas de Caxias do Sul"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Gazzola",
+                    "r": "ND",
+                    "n": "F"
+                },
+                {
+                    "_": "",
+                    "s": "Sartor",
+                    "r": "ND",
+                    "n": "N"
+                },
+                {
+                    "_": "",
+                    "s": "Ávila",
+                    "r": "ND",
+                    "n": "SN"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Cienc Saúde"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100015"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20130000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100015",
+            "v514": [
+                {
+                    "l": "18",
+                    "_": "",
+                    "f": "13"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "19"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "13-8"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2013"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "15"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Distúrbios osteomusculares relacionados ao trabalho em cirurgioes-dentistas: revisao de literatura"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Silva Júnior",
+                    "r": "ND",
+                    "n": "DS"
+                },
+                {
+                    "_": "",
+                    "s": "Schneid",
+                    "r": "ND",
+                    "n": "JL"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "DS"
+                },
+                {
+                    "_": "",
+                    "s": "Castro",
+                    "r": "ND",
+                    "n": "AG"
+                },
+                {
+                    "_": "",
+                    "s": "Nunes",
+                    "r": "ND",
+                    "n": "RD"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Amazônia Sci Health"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100016"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20010000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "Brasil"
+                },
+                {
+                    "_": "Ministério da Saúde"
+                },
+                {
+                    "_": "Departamento de Açoes Programáticas e Estratégias"
+                },
+                {
+                    "_": "Área Técnica de Saúde do Trabalhador"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100016",
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "20"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2001"
+                }
+            ],
+            "collection": "scl",
+            "v71": [
+                {
+                    "_": "book"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v66": [
+                {
+                    "_": "Brasília"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v62": [
+                {
+                    "_": "Ministério da Saúde"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "16"
+                }
+            ],
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v18": [
+                {
+                    "_": "Doenças relacionadas ao trabalho - Manual de procedimentos para os serviços de saúde"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100017"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20110000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100017",
+            "v514": [
+                {
+                    "l": "235",
+                    "_": "",
+                    "f": "231"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "21"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "66"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "231-5"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "4"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2011"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "17"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Musculoskeletal disorders among Brazilian dentists"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Alexandre",
+                    "r": "ND",
+                    "n": "PC"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "IC"
+                },
+                {
+                    "_": "",
+                    "s": "Souza",
+                    "r": "ND",
+                    "n": "LM"
+                },
+                {
+                    "_": "",
+                    "s": "Magalhaes Câmara",
+                    "r": "ND",
+                    "n": "V"
+                },
+                {
+                    "_": "",
+                    "s": "Palácios",
+                    "r": "ND",
+                    "n": "M"
+                },
+                {
+                    "_": "",
+                    "s": "Meyer",
+                    "r": "ND",
+                    "n": "A"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Arch Environ Occup Health"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100018"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20100000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100018",
+            "v514": [
+                {
+                    "l": "159",
+                    "_": "",
+                    "f": "150"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "22"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "23"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "150-9"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2010"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "18"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Dores músculo-esqueléticas em estudantes de odontologia"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Siqueira",
+                    "r": "ND",
+                    "n": "GR"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "AM"
+                },
+                {
+                    "_": "",
+                    "s": "Vieira",
+                    "r": "ND",
+                    "n": "RA"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "RB."
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Bras Promoç Saúde"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100019"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "19990000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100019",
+            "v514": [
+                {
+                    "l": "91",
+                    "_": "",
+                    "f": "83"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "23"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "6"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "83-91"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "1999"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "19"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Fisioterapia preventiva atuando na ergonomia e no stress no trabalho"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Miyamoto",
+                    "r": "ND",
+                    "n": "ST"
+                },
+                {
+                    "_": "",
+                    "s": "Salmaso",
+                    "r": "ND",
+                    "n": "C"
+                },
+                {
+                    "_": "",
+                    "s": "Mehanna",
+                    "r": "ND",
+                    "n": "A"
+                },
+                {
+                    "_": "",
+                    "s": "Batistela",
+                    "r": "ND",
+                    "n": "AE"
+                },
+                {
+                    "_": "",
+                    "s": "Sato",
+                    "r": "ND",
+                    "n": "T"
+                },
+                {
+                    "_": "",
+                    "s": "Grego",
+                    "r": "ND",
+                    "n": "ML"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Fisioter Univ São Paulo"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100020"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "19870000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100020",
+            "v514": [
+                {
+                    "l": "237",
+                    "_": "",
+                    "f": "233"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "24"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "18"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "233-7"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "1987"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "20"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Standardised Nordic questionnaires for the analysis of musculoskeletal symptoms"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Kuorinka",
+                    "r": "ND",
+                    "n": "I"
+                },
+                {
+                    "_": "",
+                    "s": "Jonsson",
+                    "r": "ND",
+                    "n": "B"
+                },
+                {
+                    "_": "",
+                    "s": "Kilbom",
+                    "r": "ND",
+                    "n": "A"
+                },
+                {
+                    "_": "",
+                    "s": "Vinterberg",
+                    "r": "ND",
+                    "n": "H"
+                },
+                {
+                    "_": "",
+                    "s": "Biering-Sorensen",
+                    "r": "ND",
+                    "n": "F"
+                },
+                {
+                    "_": "",
+                    "s": "Andersson",
+                    "r": "ND",
+                    "n": "G"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Appl Ergon"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100021"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20020000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100021",
+            "v514": [
+                {
+                    "l": "312",
+                    "_": "",
+                    "f": "307"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "25"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "36"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "307-12"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2002"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "21"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Validaçao do Questionário Nórdico de Sintomas Osteomusculares como medida de morbidade"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Pinheiro",
+                    "r": "ND",
+                    "n": "FA"
+                },
+                {
+                    "_": "",
+                    "s": "Tróccoli",
+                    "r": "ND",
+                    "n": "BT"
+                },
+                {
+                    "_": "",
+                    "s": "Carvalho",
+                    "r": "ND",
+                    "n": "CV."
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Saúde Pública"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100022"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "19980000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "The Whoqol Group"
+                },
+                {
+                    "_": "Development of the World Health Organization WHOQOL-bref"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100022",
+            "v514": [
+                {
+                    "l": "558",
+                    "_": "",
+                    "f": "551"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "26"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "28"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "551-8"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "1998"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "22"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Quality of Life Assesment 1998"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Psychol Med"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100023"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20000000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100023",
+            "v514": [
+                {
+                    "l": "183",
+                    "_": "",
+                    "f": "178"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "27"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "34"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "178-83"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2000"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "23"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Aplicaçao da versao em portugues do instrumento abreviado de avaliaçao da qualidade de vida \"WHOQOL-bref\""
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Fleck",
+                    "r": "ND",
+                    "n": "MP"
+                },
+                {
+                    "_": "",
+                    "s": "Louzada",
+                    "r": "ND",
+                    "n": "S"
+                },
+                {
+                    "_": "",
+                    "s": "Xavier",
+                    "r": "ND",
+                    "n": "M"
+                },
+                {
+                    "_": "",
+                    "s": "Chachamovich",
+                    "r": "ND",
+                    "n": "E"
+                },
+                {
+                    "_": "",
+                    "s": "Vieira",
+                    "r": "ND",
+                    "n": "G"
+                },
+                {
+                    "_": "",
+                    "s": "Santos",
+                    "r": "ND",
+                    "n": "L"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Saúde Pública"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100024"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20130000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100024",
+            "v514": [
+                {
+                    "l": "250",
+                    "_": "",
+                    "f": "250"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "28"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "6"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "250"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2013"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "24"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Musculoskeletal disorders and symptom severity among Australian dental hygienists"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Hayes",
+                    "r": "ND",
+                    "n": "MJ"
+                },
+                {
+                    "_": "",
+                    "s": "Smith",
+                    "r": "ND",
+                    "n": "DR"
+                },
+                {
+                    "_": "",
+                    "s": "Taylor",
+                    "r": "ND",
+                    "n": "JA"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "BMC Res Notes"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100025"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20090000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100025",
+            "v514": [
+                {
+                    "l": "17",
+                    "_": "",
+                    "f": "11"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "29"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "3"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "11-7"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2009"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "25"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Aplicaçao de princípios de ergonomia no atendimento odontológico"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Yarid",
+                    "r": "ND",
+                    "n": "SD"
+                },
+                {
+                    "_": "",
+                    "s": "Diniz",
+                    "r": "ND",
+                    "n": "DG"
+                },
+                {
+                    "_": "",
+                    "s": "Orenha",
+                    "r": "ND",
+                    "n": "ES"
+                },
+                {
+                    "_": "",
+                    "s": "Arcieri",
+                    "r": "ND",
+                    "n": "RM"
+                },
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "AJ"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Interbio"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100026"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20120000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100026",
+            "v514": [
+                {
+                    "l": "40",
+                    "_": "",
+                    "f": "36"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "30"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "4"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "36-40"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2012"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "26"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Musculoskeletal disorders in dentists"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Rabiei",
+                    "r": "ND",
+                    "n": "M"
+                },
+                {
+                    "_": "",
+                    "s": "Shakiba",
+                    "r": "ND",
+                    "n": "M"
+                },
+                {
+                    "_": "",
+                    "s": "Dehgan-Shahreza",
+                    "r": "ND",
+                    "n": "H"
+                },
+                {
+                    "_": "",
+                    "s": "Talebzadeh",
+                    "r": "ND",
+                    "n": "M."
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Int J Occup Hig"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100027"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20090000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100027",
+            "v514": [
+                {
+                    "l": "78",
+                    "_": "",
+                    "f": "68"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "31"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "47"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "68-78"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2009"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "27"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Prevalencia de sintomatologia dolorosa recurrente del ejercicio profesional en cirujanos dentistas"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "AJ"
+                },
+                {
+                    "_": "",
+                    "s": "Presta",
+                    "r": "ND",
+                    "n": "AA"
+                },
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "CA"
+                },
+                {
+                    "_": "",
+                    "s": "Saliba",
+                    "r": "ND",
+                    "n": "O"
+                },
+                {
+                    "_": "",
+                    "s": "Lima",
+                    "r": "ND",
+                    "n": "DC"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Acta Odontol Venez"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100028"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20120000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100028",
+            "v514": [
+                {
+                    "l": "54",
+                    "_": "",
+                    "f": "49"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "32"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "69"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "49-54"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2012"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "28"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Lesoes por esforços repetitivos (LER) e distúrbios osteomusculares (Dort) em dentistas"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Medeiros",
+                    "r": "ND",
+                    "n": "UV"
+                },
+                {
+                    "_": "",
+                    "s": "Segatto",
+                    "r": "ND",
+                    "n": "GG"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Bras Odontol"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100029"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20150000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100029",
+            "v514": [
+                {
+                    "l": "95",
+                    "_": "",
+                    "f": "90"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "33"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "16"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "90-5"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2015"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "29"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Musculoskeletal pain and ergonomic aspects of dentistry"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "AJ"
+                },
+                {
+                    "_": "",
+                    "s": "Garbin",
+                    "r": "ND",
+                    "n": "CA"
+                },
+                {
+                    "_": "",
+                    "s": "Arcieri",
+                    "r": "ND",
+                    "n": "RM"
+                },
+                {
+                    "_": "",
+                    "s": "Rovida",
+                    "r": "ND",
+                    "n": "TA"
+                },
+                {
+                    "_": "",
+                    "s": "Freire",
+                    "r": "ND",
+                    "n": "AC"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Dor."
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100030"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20030000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100030",
+            "v514": [
+                {
+                    "l": "93",
+                    "_": "",
+                    "f": "87"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "34"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "6"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "87-93"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2003"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "30"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "LER/DORT: um grave problema de saúde pública que acomete os cirurgioes-dentistas"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Araújo",
+                    "r": "ND",
+                    "n": "MA"
+                },
+                {
+                    "_": "",
+                    "s": "Paula",
+                    "r": "ND",
+                    "n": "MV"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev APS"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100031"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20010000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100031",
+            "v514": [
+                {
+                    "l": "193",
+                    "_": "",
+                    "f": "181"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "17"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "181-93"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2001"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "31"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Atividade ocupacional e prevalencia de dor osteomuscular em cirurgioes-dentistas de Belo Horizonte, Minas Gerais, Brasil: contribuição ao debate sobre os distúrbios osteomusculares relacionados ao trabalho"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Santos Filho",
+                    "r": "ND",
+                    "n": "SB"
+                },
+                {
+                    "_": "",
+                    "s": "Barreto",
+                    "r": "ND",
+                    "n": "SM"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Cad Saúde Pública"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100032"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20010000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v17": [
+                {
+                    "_": "Brasil"
+                },
+                {
+                    "_": "Ministério da Saúde"
+                },
+                {
+                    "_": "Departamento de Açoes Programáticas e Estratégicas"
+                },
+                {
+                    "_": "Área Técnica de Saúde do Trabalhador"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100032",
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "36"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2001"
+                }
+            ],
+            "collection": "scl",
+            "v71": [
+                {
+                    "_": "book"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v66": [
+                {
+                    "_": "Brasil"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v62": [
+                {
+                    "_": "Ministério da Saúde"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "32"
+                }
+            ],
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v18": [
+                {
+                    "_": "LER/DORT: dilemas, polemicas e dúvidas"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100033"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20090000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100033",
+            "v514": [
+                {
+                    "l": "179",
+                    "_": "",
+                    "f": "173"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "37"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "24"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "173-9"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "2"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2009"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "33"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Distúrbios osteomusculares e fatores associados em cirurgioes dentistas do meio oeste do estado de Santa Catarina"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Kotliarenko",
+                    "r": "ND",
+                    "n": "A"
+                },
+                {
+                    "_": "",
+                    "s": "Michel-Crosato",
+                    "r": "ND",
+                    "n": "E"
+                },
+                {
+                    "_": "",
+                    "s": "Haye Biazevic",
+                    "r": "ND",
+                    "n": "MG"
+                },
+                {
+                    "_": "",
+                    "s": "Crosato",
+                    "r": "ND",
+                    "n": "E"
+                },
+                {
+                    "_": "",
+                    "s": "Silva",
+                    "r": "ND",
+                    "n": "PR"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Odonto Cienc"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100034"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20130000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100034",
+            "v514": [
+                {
+                    "l": "32",
+                    "_": "",
+                    "f": "24"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "38"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "60"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "24-32"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2013"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "34"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Prevalence and risk factors for musculoskeletal disorders in dentists"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Vuleti&#263;",
+                    "r": "ND",
+                    "n": "J"
+                },
+                {
+                    "_": "",
+                    "s": "Potran",
+                    "r": "ND",
+                    "n": "M"
+                },
+                {
+                    "_": "",
+                    "s": "Kalem",
+                    "r": "ND",
+                    "n": "D"
+                },
+                {
+                    "_": "",
+                    "s": "Pani&#263;",
+                    "r": "ND",
+                    "n": "Z"
+                },
+                {
+                    "_": "",
+                    "s": "Pu&#353;kar",
+                    "r": "ND",
+                    "n": "T"
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Serbian Dent J"
+                }
+            ]
+        },
+        {
+            "v705": [
+                {
+                    "_": "S"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "S1806-0013201600040026100035"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20150000"
+                }
+            ],
+            "v3": [
+                {
+                    "_": "1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "v936": [
+                {
+                    "_": "",
+                    "o": "4",
+                    "y": "2016",
+                    "i": "1806-0013"
+                }
+            ],
+            "v702": [
+                {
+                    "_": "rdor/v17n4/1806-0013-rdor-17-04-0261.xml"
+                }
+            ],
+            "code": "S1806-0013201600040026100035",
+            "v514": [
+                {
+                    "l": "21",
+                    "_": "",
+                    "f": "15"
+                }
+            ],
+            "v700": [
+                {
+                    "_": "39"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "16"
+                }
+            ],
+            "v14": [
+                {
+                    "_": "15-21"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v64": [
+                {
+                    "_": "2015"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "c"
+                }
+            ],
+            "v71": [
+                {
+                    "_": "journal"
+                }
+            ],
+            "v2": [
+                {
+                    "_": "S1806-0013(16)01700400261"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "processing_date": "2022-08-02",
+            "v708": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v865": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "collection": "scl",
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v882": [
+                {
+                    "_": "",
+                    "n": "4",
+                    "v": "17"
+                }
+            ],
+            "v4": [
+                {
+                    "_": "v17n4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "35"
+                }
+            ],
+            "v12": [
+                {
+                    "_": "Prevalence of pain at the head, face and neck and its association with quality of life in general population of Piracicaba city, Sao Paulo: an epidemiological study"
+                }
+            ],
+            "v16": [
+                {
+                    "_": "",
+                    "s": "Ruivo",
+                    "r": "ND",
+                    "n": "MA"
+                },
+                {
+                    "_": "",
+                    "s": "Alves",
+                    "r": "ND",
+                    "n": "MC"
+                },
+                {
+                    "_": "",
+                    "s": "Bérzin",
+                    "r": "ND",
+                    "n": "MG"
+                },
+                {
+                    "_": "",
+                    "s": "Bérzin",
+                    "r": "ND",
+                    "n": "F."
+                }
+            ],
+            "v30": [
+                {
+                    "_": "Rev Dor"
+                }
+            ]
+        }
+    ],
+    "code_title": [
+        "1806-0013",
+        "2317-6393"
+    ],
+    "validated_wos": "False",
+    "sent_wos": "False",
+    "document_type": "research-article",
+    "applicable": "True",
+    "publication_date": "2016-12",
+    "created_at": "2017-01-03",
+    "fulltexts": {
+        "html": {
+            "en": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1806-00132016000400261&tlng=en",
+            "pt": "http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1806-00132016000400261&tlng=pt"
+        }
+    },
+    "issue": {
+        "code": "1806-001320160004",
+        "collection": "scl",
+        "processing_date": "2017-01-02",
+        "code_title": [
+            "2317-6393",
+            "1806-0013"
+        ],
+        "created_at": "2017-01-02",
+        "issue_type": "regular",
+        "publication_date": "2016-12",
+        "issue": {
+            "v700": [
+                {
+                    "_": "0"
+                }
+            ],
+            "processing_date": "2017-01-02",
+            "v30": [
+                {
+                    "_": "Rev. dor"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v48": [
+                {
+                    "h": "Sumario",
+                    "_": "",
+                    "l": "es"
+                },
+                {
+                    "h": "Sumário",
+                    "_": "",
+                    "l": "pt"
+                },
+                {
+                    "h": "Table of Contents",
+                    "_": "",
+                    "l": "en"
+                }
+            ],
+            "v4": "v17n4",
+            "v43": [
+                {
+                    "a": "2016",
+                    "n": "no.4",
+                    "c": "São Paulo",
+                    "t": "Rev. dor",
+                    "m": "oct./dic.",
+                    "v": "vol.17",
+                    "_": "",
+                    "l": "es"
+                },
+                {
+                    "a": "2016",
+                    "n": "no.4",
+                    "c": "São Paulo",
+                    "t": "Rev. dor",
+                    "m": "out./dez.",
+                    "v": "vol.17",
+                    "_": "",
+                    "l": "pt"
+                },
+                {
+                    "a": "2016",
+                    "n": "no.4",
+                    "c": "São Paulo",
+                    "t": "Rev. dor",
+                    "m": "Oct./Dec.",
+                    "v": "vol.17",
+                    "_": "",
+                    "l": "en"
+                }
+            ],
+            "v480": [
+                {
+                    "_": "Sociedade Brasileira para o Estudo da Dor"
+                }
+            ],
+            "v151": [
+                {
+                    "_": "Rev. dor"
+                }
+            ],
+            "v435": [
+                {
+                    "t": "PRINT",
+                    "_": "1806-0013"
+                },
+                {
+                    "t": "ONLIN",
+                    "_": "2317-6393"
+                }
+            ],
+            "v85": [
+                {
+                    "_": "decs"
+                }
+            ],
+            "v122": [
+                {
+                    "_": "16"
+                }
+            ],
+            "v31": [
+                {
+                    "_": "17"
+                }
+            ],
+            "v49": [
+                {
+                    "t": "Editorial",
+                    "_": "",
+                    "l": "pt",
+                    "c": "RDOR060"
+                },
+                {
+                    "t": "Editorial",
+                    "_": "",
+                    "l": "en",
+                    "c": "RDOR060"
+                },
+                {
+                    "t": "Artigos Originais",
+                    "_": "",
+                    "l": "pt",
+                    "c": "RDOR070"
+                },
+                {
+                    "t": "Original Articles",
+                    "_": "",
+                    "l": "en",
+                    "c": "RDOR070"
+                },
+                {
+                    "t": "Artigos de Revisão",
+                    "_": "",
+                    "l": "pt",
+                    "c": "RDOR080"
+                },
+                {
+                    "t": "Review Articles",
+                    "_": "",
+                    "l": "en",
+                    "c": "RDOR080"
+                },
+                {
+                    "t": "Relato de Caso",
+                    "_": "",
+                    "l": "pt",
+                    "c": "RDOR130"
+                },
+                {
+                    "t": "Case Report",
+                    "_": "",
+                    "l": "en",
+                    "c": "RDOR130"
+                }
+            ],
+            "v541": [
+                {
+                    "_": "BY"
+                }
+            ],
+            "v935": [
+                {
+                    "_": "2317-6393"
+                }
+            ],
+            "v991": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v930": [
+                {
+                    "_": "RDOR"
+                }
+            ],
+            "v35": [
+                {
+                    "_": "1806-0013"
+                }
+            ],
+            "v999": [
+                {
+                    "_": "../bases-work/rdor/rdor"
+                }
+            ],
+            "v117": [
+                {
+                    "_": "vancouv"
+                }
+            ],
+            "v32": [
+                {
+                    "_": "4"
+                }
+            ],
+            "v701": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v130": [
+                {
+                    "_": "Revista Dor"
+                }
+            ],
+            "collection": "scl",
+            "v36": [
+                {
+                    "_": "20164"
+                }
+            ],
+            "v880": [
+                {
+                    "_": "1806-001320160004"
+                }
+            ],
+            "v42": [
+                {
+                    "_": "1"
+                }
+            ],
+            "v65": [
+                {
+                    "_": "20161200"
+                }
+            ],
+            "v200": [
+                {
+                    "_": "0"
+                }
+            ],
+            "v706": [
+                {
+                    "_": "i"
+                }
+            ],
+            "v91": [
+                {
+                    "_": "20170102"
+                }
+            ],
+            "code": "1806-001320160004"
+        },
+        "publication_year": "2016"
+    }
+}
