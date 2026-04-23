@@ -33,7 +33,7 @@ jobs:
 
       - name: Rodar scraper e logs
         run: |
-          python web_livro_scrap.py | tee log_web_livro.txt
+          python literario/autor_scrap.py | tee autor.txt
 
       - name: Commit automático do banco
         run: |

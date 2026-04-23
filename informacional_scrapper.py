@@ -350,9 +350,9 @@ class WaybackScraperPipeline:
         if not self.is_textual_article(texto_limpo):
             return
         
-        if not self.is_instructional(texto_limpo):
+        #if not self.is_instructional(texto_limpo):
             # print(f"[Descartado] Não tem perfil de tutorial/receita: {original_url}")
-            return
+            #return
 
         char_count = len(texto_limpo)
         categoria  = self.categorizar_tamanho(char_count)
