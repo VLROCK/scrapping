@@ -11,7 +11,7 @@ import re
 
 from datasets import load_dataset
 
-ZST_FILE_PATH = "data/raw_data/RS_2019-04.zst"
+ZST_FILE_PATH = "data/raw_data/reddit/submissions/RS_2017-01.zst"
 # 1. A sua Peneira (Lista de Subreddits em Português)
 # Você pode adicionar quantos quiser aqui. Use sempre letras minúsculas.
 SUBREDDITS_PT = {
@@ -19,8 +19,8 @@ SUBREDDITS_PT = {
     "botecodoreddit": "Humor",
     "mejulgue": "Fofocas",
     "gambiarra": "Vida cotidiana",
-    "filmeseseries": "Cultura pop (filmes, séries, jogos)",
-    "musicabr": "Cultura pop (filmes, séries, jogos)",
+    "filmeseseries": "Cultura",
+    "musicabr": "Cultura",
 
     "brasil": "Política",
     "conversas": "Vida cotidiana",
@@ -28,14 +28,14 @@ SUBREDDITS_PT = {
     "eusouobabaca": "Histórias pessoais",
     "perguntereddit": "Conselhos",
     "relatosdoreddit": "Histórias pessoais",
-    "opiniaoimpopular": "Teorias",
+    "opiniaoimpopular": "Debates",
     "relacionamentos": "Relacionamentos",
     "sexualidade": "Relacionamentos",
 
     "antitrampo": "Trabalho",
     "investimentos": "Finanças",
     "farialimabets": "Finanças",
-    "golpe": "Reclamações e avaliações",
+    "golpe": "Avaliações",
     "conselhodecarreira": "Trabalho",
     "empreendedorismo": "Trabalho",
 
@@ -45,8 +45,8 @@ SUBREDDITS_PT = {
     "hardwarebrasil": "Tecnologia",
 
     "idiomas": "Educação",
-    "livros": "Cultura pop (filmes, séries, jogos)",
-    "filosofia": "Teorias",
+    "livros": "Cultura",
+    "filosofia": "Debates",
     "biologiabrasil": "Educação",
     "psicologiabr": "Saúde",
     "direito": "Educação",
