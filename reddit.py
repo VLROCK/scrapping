@@ -11,7 +11,7 @@ import re
 
 from datasets import load_dataset
 
-ZST_FILE_PATH = "data/raw_data/reddit/submissions/RS_2017-01.zst"
+ZST_FILE_PATH = "data/raw_data/reddit/submissions/RS_2017-03.zst"
 # 1. A sua Peneira (Lista de Subreddits em Português)
 # Você pode adicionar quantos quiser aqui. Use sempre letras minúsculas.
 SUBREDDITS_PT = {

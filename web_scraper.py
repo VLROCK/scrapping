@@ -163,7 +163,8 @@ class WaybackScraperPipeline:
         12 anos × 4 trimestres = 48 tasks por domínio, limitadas pelo cdx_semaphore.
         Antes: sequencial com sleep = ~30min. Agora: ~1-2min.
         """
-        trimestres = [("01", "03"), ("04", "06"), ("07", "09"), ("10", "12")]
+        #trimestres = [("01", "03"), ("04", "06"), ("07", "09"), ("10", "12")]
+        trimestres = [("02", "03"), ("05", "06"), ("08", "09"), ("11", "12")]
         #trimestres = [("03", "03"), ("06", "06"), ("09", "09"), ("12", "12")]
 
         tasks = [
