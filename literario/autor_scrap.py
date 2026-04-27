@@ -322,7 +322,7 @@ class LiveScraperPipeline:
             return
         self.seen_hashes.add(texto_hash)
 
-        # data_pub = (extract_data.date or '')[:4]
+        data_pub = (extract_data.date or '')[:4]
         if not data_pub or not data_pub.isdigit():
             data_pub = 'Desconhecida'
             
@@ -337,7 +337,7 @@ class LiveScraperPipeline:
             
         # Opcional: Se quiser ser 100% rigoroso e não aceitar textos sem data, 
         # descomente a linha abaixo:
-        # if data_pub == 'Desconhecida': return
+        if data_pub == 'Desconhecida': return
 
         # --- EXTRAÇÃO DO TEMA VIA URL ---
         # Transforma "https://autores.com.br/haicai.html" em "Haicai"
@@ -419,4 +419,4 @@ if __name__ == "__main__":
     pipeline = LiveScraperPipeline(target_domains=dominios, max_concurrent_requests=200)
     
     # Coloque max_test_urls=10 para um teste rápido, ou deixe None para baixar TUDO
-    asyncio.run(pipeline.run())
+    asyncio.run(pipeline.run(max_test_urls=10))
