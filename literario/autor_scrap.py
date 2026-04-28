@@ -419,4 +419,4 @@ if __name__ == "__main__":
     pipeline = LiveScraperPipeline(target_domains=dominios, max_concurrent_requests=200)
     
     # Coloque max_test_urls=10 para um teste rápido, ou deixe None para baixar TUDO
-    asyncio.run(pipeline.run(max_test_urls=10))
+    asyncio.run(pipeline.run())

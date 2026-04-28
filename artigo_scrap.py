@@ -16,7 +16,7 @@ SCHEMA_PATH = os.path.join(BASE_DIR, "schema.sql")
 LANG_MODEL_PATH = os.path.join(BASE_DIR, "models", "lid.176.ftz")
 
 # Endpoint de metadados leve — usado para pré-filtro de idioma e área
-API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2017-01-01"
+API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2017-02-01"
 API_META_URL      = "http://articlemeta.scielo.org/api/v1/article/?collection=scl&code={pid}&format=json"
 API_HTML_URL      = "https://www.scielo.br/article/{pid}/?lang=pt"
 
@@ -39,6 +39,13 @@ async def init_db():
     db = await aiosqlite.connect(DB_PATH)
     with open(SCHEMA_PATH, "r", encoding="utf-8") as f:
         await db.executescript(f.read())
+
+    await db.execute("""
+        CREATE TABLE IF NOT EXISTS visited_pids (
+            pid TEXT PRIMARY KEY
+        )
+    """)
+
     await db.commit()
     return db
 
@@ -157,10 +164,6 @@ async def extrair_artigo(
     lang_model
 ) -> bool:
 
-    # Controle de PIDs visitados — evita re-baixar entre execuções
-    if pid in seen_pids:
-        return False
-
     async with semaphore:
 
         # ── Pré-filtro de idioma via metadados (sem baixar HTML) ─────────
@@ -168,18 +171,15 @@ async def extrair_artigo(
         if not meta:
             return False
 
-        if 'pt' not in [l.lower() for l in meta['languages']]:
-            print(f"[{pid}] Ignorado: sem versão PT (idiomas: {meta['languages']})")
-            return False
-
         specific_theme = meta['area']
         ano_pub        = meta['ano']
         
 
         # ── Download do HTML em português ────────────────────────────────
-        url_html = meta.get('url_pt')
+        url_html = meta['url_pt']
         if not url_html:
-            url_html = f"https://www.scielo.br/article/{pid}/?lang=pt"
+            print(f"[{pid}] Descartado: Sem versão HTML em português.")
+            return False
 
         headers  = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
@@ -217,11 +217,12 @@ async def extrair_artigo(
         print(f"[{pid}] Descartado: Página fantasma (Apenas PDF disponível).")
         return False
     
-    # ── GUILHOTINA DO ABSTRACT ───────────────────────────────────────────
-    # Se a palavra "abstract" aparecer solta no texto, descartamos na hora.
-    if re.search(r'\babstract\b', texto, re.IGNORECASE):
-       print(f"[{pid}] Descartado: Vazamento da seção ABSTRACT no texto.")
-       return False
+    texto = re.sub(
+        r'\babstract\b.*?(?=\bintrodu[çc][ãa]o\b)', 
+        '', 
+        texto, 
+        flags=re.IGNORECASE | re.DOTALL
+    )
 
     # Corte de referências
     texto = re.split(
@@ -286,9 +287,8 @@ async def discovery_scielo_batch(session, limit: int = 100, offset: int = 0) -> 
 
 # ── Orquestrador ─────────────────────────────────────────────────────────────
 
-async def run_scielo_pipeline(meta_alvo: int = 200, max_concurrent: int = 10):
+async def run_scielo_pipeline(meta_alvo: int = 5000, max_concurrent: int = 10):
 
-    # Carrega fasttext uma vez, passa como parâmetro (sem global)
     lang_model = None
     if os.path.exists(LANG_MODEL_PATH):
         try:
@@ -297,29 +297,25 @@ async def run_scielo_pipeline(meta_alvo: int = 200, max_concurrent: int = 10):
         except Exception as e:
             print(f"[Aviso] fastText falhou ({e}). Usando só pré-filtro de metadados.")
     else:
-        print("[Aviso] Modelo fastText não encontrado. Usando só pré-filtro de metadados.")
+        print("[Aviso] Modelo fastText não encontrado. Usando só pré-filtro.")
 
     db = await init_db()
 
     async with db.execute("SELECT content_hash FROM texts") as cur:
         seen_hashes = {row[0] for row in await cur.fetchall()}
 
-    # PIDs já visitados (evita re-download entre execuções)
-    # Extrai o PID da source_url salva
-    async with db.execute("SELECT source_url FROM texts WHERE source_name='scielo.br'") as cur:
-        seen_pids = set()
-        for (url,) in await cur.fetchall():
-            m = re.search(r'/article/([^/]+)/', url or '')
-            if m:
-                seen_pids.add(m.group(1))
+    # --- NOVO: Carrega TODOS os PIDs que o robô já viu na vida ---
+    async with db.execute("SELECT pid FROM visited_pids") as cur:
+        seen_pids = {row[0] for row in await cur.fetchall()}
 
-    print(f"[DB] {len(seen_hashes)} textos | {len(seen_pids)} PIDs já visitados.")
+    print(f"[DB] {len(seen_hashes)} textos salvos | {len(seen_pids)} PIDs já avaliados no total.")
 
     semaphore   = asyncio.Semaphore(max_concurrent)
     hashes_lock = asyncio.Lock()
 
     salvos_sessao = 0
-    offset = len(seen_pids) # Começa a buscar a partir do que já vimos para não repetir do zero
+    # AGORA O OFFSET VAI AVANÇAR DE VERDADE PELA API DA SCIELO!
+    offset = 0
     limit = 100
 
     async with aiohttp.ClientSession() as session:
@@ -333,8 +329,15 @@ async def run_scielo_pipeline(meta_alvo: int = 200, max_concurrent: int = 10):
                 
             offset += limit
             
-            # Filtra os que o robô já viu em dias anteriores
+            # Filtra os que o robô já viu em execuções passadas
             pids_novos = [p for p in pids_lote if p not in seen_pids]
+            
+            # Grava no banco que esses PIDs já foram vistos para NUNCA MAIS voltarmos neles
+            if pids_novos:
+                await db.executemany("INSERT OR IGNORE INTO visited_pids (pid) VALUES (?)", [(p,) for p in pids_novos])
+                await db.commit()
+                seen_pids.update(pids_novos)
+                
             if not pids_novos:
                 continue
                 
@@ -345,25 +348,17 @@ async def run_scielo_pipeline(meta_alvo: int = 200, max_concurrent: int = 10):
                 for pid in pids_novos
             ]
             
-            # Executa o lote em paralelo
             resultados = await asyncio.gather(*tasks)
             
-            # Conta quantos conseguiram passar pela guilhotina do idioma e salvar
             sucessos_lote = sum(r for r in resultados if r)
             salvos_sessao += sucessos_lote
             
-            # Marca todos do lote como visitados para nunca mais bater neles
-            seen_pids.update(pids_novos)
-            
             print(f"==================================================")
-            print(f"[STATUS] Meta: {salvos_sessao} de {meta_alvo} artigos salvos.")
+            print(f"[STATUS] Lote: {sucessos_lote} salvos | Total Sessão: {salvos_sessao}/{meta_alvo}")
             print(f"==================================================")
 
     await db.close()
-    print(f"\n[Finalizado] A meta foi atingida! {salvos_sessao} artigos inseridos na base.")
-
-    await db.close()
-    print(f"\n[Finalizado] {salvos_sessao}/{len(pids_novos)} artigos salvos.")
+    print(f"\n[Finalizado] {salvos_sessao} artigos salvos nesta sessão.")
 
 
 if __name__ == "__main__":

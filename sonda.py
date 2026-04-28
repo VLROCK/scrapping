@@ -2,7 +2,7 @@ import urllib.request
 import json
 
 # Pegue qualquer PID que o seu robô baixou recentemente e cole aqui
-PID = "S1806-00132016000400261" # Substitua por um PID real do seu log
+PID = "S2358-04292016000600001" # Substitua por um PID real do seu log
 
 # A URL da API que retorna os metadados brutos
 URL = f"http://articlemeta.scielo.org/api/v1/article/?collection=scl&code={PID}&format=json"
