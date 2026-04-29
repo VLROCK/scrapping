@@ -16,7 +16,7 @@ SCHEMA_PATH = os.path.join(BASE_DIR, "schema.sql")
 LANG_MODEL_PATH = os.path.join(BASE_DIR, "models", "lid.176.ftz")
 
 # Endpoint de metadados leve — usado para pré-filtro de idioma e área
-API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2016-02-01"
+API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2017-07-01"
 API_META_URL      = "http://articlemeta.scielo.org/api/v1/article/?collection=scl&code={pid}&format=json"
 API_HTML_URL      = "https://www.scielo.br/article/{pid}/?lang=pt"
 
