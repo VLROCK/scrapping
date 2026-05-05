@@ -112,7 +112,7 @@ class WaybackScraperTrashPipeline:
             "fl":     "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
             "collapse": "urlkey",
-            "limit":  "15",  
+            "limit":  "50",  
         }
 
         async with self.cdx_semaphore:
