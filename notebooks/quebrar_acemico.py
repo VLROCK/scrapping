@@ -11,8 +11,8 @@ from tqdm import tqdm
 # --- CONFIGURAÇÃO DOS BANCOS ---
 DB_ORIGEM = "data/dataset_artigo.db"               # O seu banco original (Intocável)
 DB_DESTINO = "data/dataset_artigo_balanceado.db"   # O novo banco que será criado
-QTD_LONGO = 500
-QTD_MUITO_LONGO = 500
+QTD_LONGO = 150
+QTD_MUITO_LONGO = 150
 
 def categorizar_tamanho(char_count: int) -> str:
     if 100 <= char_count <= 600:       return "Curto"
