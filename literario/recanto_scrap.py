@@ -7,6 +7,7 @@ from charset_normalizer import from_bytes
 import uuid
 import aiosqlite
 import os
+import gzip
 import random
 import time
 from urllib.parse import urlparse
@@ -17,20 +18,23 @@ from langdetect.lang_detect_exception import LangDetectException
 
 DetectorFactory.seed = 0
 
-DB_PATH = "data/dataset_literariro_autores.db"
+# [ALTERADO] Nome do banco de dados atualizado para refletir o novo site
+DB_PATH = "data/dataset_literario_recanto.db"
 
 # ── Filtros e Configurações ──────────────────────────────────────────────────
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/", "/autor/", 
     "/busca", "/search", "/page/", "/galeria", "/login", "/embed",     
     "/videos_e_fotos", "/video/", "/blog/", "/platb/", "/live/", "/fotos/", "/album/",
-
     "/resenha", "/critica", "/ensaio", "/artigo", "/opiniao", 
-    "/entrevista", "/coluna", "/noticia", "/reportagem"
+    "/entrevista", "/coluna", "/noticia", "/reportagem",
+    # [NOVO] Bloqueios específicos do Recanto das Letras (áudio, fóruns, etc)
+    "/audios/", "/e-books/", "/mensagens/", "/homenagens/" 
 ]
 
+# [ALTERADO] O Recanto não usa .html. Os textos ficam direto na pasta da categoria com um ID numérico.
 URL_CERTO = [
-    ".html", "/publicacoes-artigos2/",
+    "/poesias/", "/contos/", "/cronicas/", "/artigos/", "/ensaios/"
 ]
 
 BLACKLIST_TERMS = [
@@ -106,15 +110,50 @@ class LiveScraperPipeline:
         )
         await self.db.commit()
 
-    # ── Fase 1: Descoberta Recursiva via Sitemap (100% do Site) ──────────────
+    # ── [NOVO] Verificação de Content-Signals para Inteligência Artificial ───
+    async def verify_ai_content_signals(self, session: aiohttp.ClientSession, domain: str) -> bool:
+        """
+        Acessa o robots.txt do site e verifica se existem regras de Content-Signal
+        bloqueando explicitamente ai-train ou ai-input.
+        Retorna True se for permitido (ou neutro), False se for proibido.
+        """
+        print(f"[Ética] Verificando permissões de IA (Content-Signals) em {domain}...")
+        robots_url = f"https://{domain}/robots.txt"
+        
+        try:
+            async with session.get(robots_url, timeout=10) as resp:
+                if resp.status == 200:
+                    texto_robots = await resp.text()
+                    
+                    # Procura por linhas no formato "ai-train: no" ou "ai-input: no"
+                    if re.search(r'(?i)ai-train\s*:\s*no', texto_robots):
+                        print(f"[BLOQUEIO] O site {domain} proíbe treinamento de IA (ai-train: no). Abortando.")
+                        return False
+                    
+                    if re.search(r'(?i)ai-input\s*:\s*no', texto_robots):
+                        print(f"[BLOQUEIO] O site {domain} proíbe coleta para IA (ai-input: no). Abortando.")
+                        return False
+                        
+                    print(f"[Ética] Nenhum bloqueio de IA detectado no robots.txt de {domain}.")
+                    return True
+                else:
+                    print(f"[Ética] robots.txt não encontrado ({resp.status}). Assumindo permissão neutra.")
+                    return True
+        except Exception as e:
+            print(f"[Ética] Falha ao ler robots.txt: {e}. Assumindo permissão neutra.")
+            return True
+
+    # ── Fase 1: Descoberta Recursiva via Sitemap ─────────────────────────────
+    # ── Fase 1: Descoberta Recursiva via Sitemap ─────────────────────────────
     async def get_all_sitemap_links(self, session: aiohttp.ClientSession, domain: str) -> List[str]:
-        """Varre o sitemap para encontrar todos os links publicados pelo site."""
         print(f"[Discovery] Procurando mapas do site para {domain}...")
         links_artigos = set()
+        
+        # [ALTERADO] Adicionado o sitemap com traço (-), exatamente como o do Recanto
         sitemaps_para_visitar = [
             f"https://{domain}/sitemap.xml",
-            f"https://{domain}/sitemap_index.xml",
-            f"https://{domain}/post-sitemap.xml"
+            f"https://{domain}/sitemap-index.xml", 
+            f"https://{domain}/sitemap_index.xml"
         ]
         sitemaps_visitados = set()
 
@@ -126,90 +165,50 @@ class LiveScraperPipeline:
             sitemaps_visitados.add(url_sitemap)
 
             try:
-                async with session.get(url_sitemap, timeout=20, headers=headers) as resp:
+                async with session.get(url_sitemap, timeout=30, headers=headers) as resp:
                     if resp.status == 200:
-                        xml_data = await resp.text()
                         
-                        # Extrai tudo que está dentro de <loc>
+                        # [NOVO] A Mágica do GZIP: Descompacta o arquivo se terminar em .gz
+                        if url_sitemap.endswith('.gz'):
+                            compressed_data = await resp.read() # Lê em binário
+                            xml_data = gzip.decompress(compressed_data).decode('utf-8', errors='ignore')
+                        else:
+                            xml_data = await resp.text() # Lê como texto normal
+                        
                         encontrados = re.findall(r'<loc>(.*?)</loc>', xml_data)
                         
                         for link in encontrados:
-                            # Se for outro sitemap, adiciona na fila
                             link = link.replace('<![CDATA[', '').replace(']]>', '').strip()
-                            if link.endswith('.xml'):
+                            
+                            # [ALTERADO] Agora ele aceita tanto .xml normal quanto .xml.gz para explorar
+                            if link.endswith('.xml') or link.endswith('.xml.gz'):
                                 sitemaps_para_visitar.append(link)
-                            # Se for uma página normal, adiciona nos artigos
+                            # Se for um link de texto normal do Recanto (ex: /poesias/123)
                             elif domain in link and not any(lixo in link for lixo in BLOCKED_URL_PATTERNS):
                                 if any(certo in link for certo in URL_CERTO):
                                     links_artigos.add(link)
+                                    
+            except Exception as e:
+                print(f"  [Erro Sitemap] Falha ao ler {url_sitemap}: {e}")
+                pass 
 
-                                
-            except Exception:
-                pass # Ignora sitemaps que derem erro e tenta o próximo
-
-        print(f"  -> {domain}: {len(links_artigos)} links totais descobertos!")
+        print(f"  -> {domain}: {len(links_artigos)} links totais descobertos no sitemap!")
         return list(links_artigos)
     
-    async def discovery_autores_profundo(self, session: aiohttp.ClientSession, domain: str) -> List[str]:
-        # 1. Pega as categorias pelo sitemap
-        categorias = await self.get_all_sitemap_links(session, domain)
-        print(f"[Discovery Profundo] Entrando em {len(categorias)} categorias para extrair os textos...")
 
-        links_textos = set()
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-        }
-
-        # 2. Entra em cada categoria e raspa os links
-        for i, url_cat in enumerate(categorias):
-            try:
-                async with session.get(url_cat, timeout=15, headers=headers) as resp:
-                    if resp.status == 200:
-                        html_data = await resp.text()
-                        
-                        # Extrai todos os links que terminam em .html e pertencem ao site
-                        # Aceita caminhos relativos (href="/...") ou absolutos (href="https://...")
-                        encontrados = re.findall(r'href=["\'](?:https://autores\.com\.br)?(/[^"\']+\.html)["\']', html_data)
-                        
-                        for link in encontrados:
-                            link_completo = f"https://autores.com.br{link}"
-                            
-                            # Evita pegar as próprias categorias de volta ou lixo
-                            if not any(lixo in link_completo for lixo in BLOCKED_URL_PATTERNS):
-                                links_textos.add(link_completo)
-                                
-            except Exception as e:
-                pass # Ignora categorias quebradas e segue o jogo
-            
-            # Print de progresso a cada 20 categorias lidas
-            if (i + 1) % 20 == 0:
-                print(f"  -> Lidas {i+1}/{len(categorias)} categorias... Textos encontrados até agora: {len(links_textos)}")
-                
-            await asyncio.sleep(0.5) # Respiro vital para não derrubar o servidor do site
-
-        # O sitemap também incluiu no nosso bolo as categorias, então removemos elas
-        links_finais = links_textos - set(categorias)
-        print(f"\n[Discovery Concluído] {len(links_finais)} textos REAIS encontrados para raspagem!")
-        return list(links_finais)
-    # ── Fase 2 e 3: Extração de Texto ao Vivo ────────────────────────────────
     # ── Fase 2 e 3: Extração de Texto ao Vivo ────────────────────────────────
     async def fetch_and_process_live(self, session: aiohttp.ClientSession, url: str):
         if self.tempo_esgotado():
             return
 
-        # Headers mais complexos para simular um navegador humano real e driblar o Cloudflare
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-            "Upgrade-Insecure-Requests": "1",
-            "Sec-Fetch-Dest": "document",
-            "Sec-Fetch-Mode": "navigate",
-            "Sec-Fetch-Site": "none",
-            "Sec-Fetch-User": "?1"
+            "Upgrade-Insecure-Requests": "1"
         }
 
-        print(f" -> Batendo na porta: {url}")
+        # print(f" -> Batendo na porta: {url}") # Omitido para não sujar muito o log.
 
         async with self.semaphore:
             for attempt in range(3):
@@ -220,28 +219,22 @@ class LiveScraperPipeline:
                             detected = from_bytes(html_bytes).best()
                             html_str = str(detected) if detected else html_bytes.decode("utf-8", errors="replace")
                             
-                            # Manda para o nosso Raio-X
                             await self.process_text(html_str, url)
                             await self.marcar_url_visitada(url)
                             return
-                            
                         else:
-                            # AGORA NENHUM ERRO ESCAPA! Vai imprimir qualquer código que não seja 200.
-                            print(f"[HTTP {response.status}] O site bloqueou o robô: {url}")
-                            
-                            # Se for bloqueio forte, nem adianta tentar de novo
+                            print(f"[BLOQUEIO HTTP {response.status}] O Recanto rejeitou o acesso a: {url}")
                             if response.status in [403, 404, 406, 503]:
                                 return 
                             
                 except Exception as e:
-                    print(f"[Erro de Código/Rede] Falha em {url}: {str(e)}")
+                    print(f"[ERRO REDE] Falha de conexão em {url}: {e}")
+                    pass
                     
                 if attempt < 2:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0.5, 1.5))
-            
-            print(f"[Desistência] Esgotou as 3 tentativas para: {url}")
 
-    # ── Filtros e Limpeza (Mantidos do seu código) ───────────────────────────
+    # ── Filtros e Limpeza ────────────────────────────────────────────────────
     def categorizar_tamanho(self, char_count: int) -> str:
         if 100 <= char_count <= 600: return "Curto"
         elif 601 <= char_count < 2501: return "Médio"
@@ -251,16 +244,9 @@ class LiveScraperPipeline:
         return "Descartar"
     
     def is_literary_tone(self, texto: str) -> bool:
-        """Verifica se o texto parece uma resenha em vez de ficção."""
         texto_lower = texto.lower()
-        
-        # Conta quantos jargões de crítica literária aparecem no texto
         pontuacao_resenha = sum(1 for term in REVIEW_TERMS if term in texto_lower)
-        
-        # Se o texto usar 2 ou mais termos críticos, ele é classificado como resenha e bloqueado
-        if pontuacao_resenha >= 2:
-            return False
-            
+        if pontuacao_resenha >= 2: return False
         return True
 
     def is_textual_article(self, texto: str) -> bool:
@@ -286,106 +272,86 @@ class LiveScraperPipeline:
         return texto.strip()
 
     async def process_text(self, html_str: str, original_url: str):
-            # ── Extrai data direto do HTML antes do trafilatura ──────────────────
         data_pub = 'Desconhecida'
         soup = BeautifulSoup(html_str, 'html.parser')
         
-        # Tenta <time itemprop="dateCreated"> primeiro (padrão do autores.com.br)
         time_tag = soup.find('time', attrs={'itemprop': 'dateCreated'})
-        if not time_tag:
-            time_tag = soup.find('time')  # fallback: qualquer <time>
+        if not time_tag: time_tag = soup.find('time') 
         
         if time_tag:
             datetime_attr = time_tag.get('datetime', '')
-            # datetime="2025-05-05T17:15:47-03:00" → pega só o ano
             ano_match = re.search(r'(\d{4})', datetime_attr)
             if ano_match:
                 data_pub = ano_match.group(1)
         
-        # Fallback: ano na URL
         if data_pub == 'Desconhecida':
             ano_url = re.search(r'/([12][0-9]{3})/', original_url)
-            if ano_url:
-                data_pub = ano_url.group(1)
+            if ano_url: data_pub = ano_url.group(1)
 
         extract_data = trafilatura.bare_extraction(
             html_str, url=original_url, target_language="pt",
             include_comments=False, include_tables=False, include_links=False
         )
 
-        # ← .text em vez de .get('text')
         if not extract_data or not extract_data.text:
+            print(f"[FANTASMA] Trafilatura não encontrou texto em: {original_url}") 
             return
 
         texto_limpo = self.limpar_residuos(extract_data.text)
         char_count  = len(texto_limpo)
 
         categoria = self.categorizar_tamanho(char_count)
-        if categoria == "Descartar":
-            return
+        if categoria == "Descartar": return
 
-        if any(term in texto_limpo.lower() for term in BLACKLIST_TERMS):
-            return
-        if any(re.search(p, texto_limpo, re.MULTILINE) for p in METADATA_PATTERNS):
-            return
-        if texto_limpo.count("\ufffd") > 10:
-            return
-        if not self.is_textual_article(texto_limpo):   # ← usa o método
-            return
-        if not self.is_literary_tone(texto_limpo):
-            return
+        if any(term in texto_limpo.lower() for term in BLACKLIST_TERMS): return
+        if any(re.search(p, texto_limpo, re.MULTILINE) for p in METADATA_PATTERNS): return
+        if texto_limpo.count("\ufffd") > 10: return
+        
+        # [ALTERADO] Removido o filtro is_textual_article para o Recanto!
+        # Poesias muitas vezes não passam no teste de "média de 10 palavras por parágrafo".
+        # Se quiser manter poesias, não podemos forçar parágrafos longos.
+        # Se você foca só em prosas, pode descomentar a linha abaixo.
+        # if not self.is_textual_article(texto_limpo): return
+        
+        #if not self.is_literary_tone(texto_limpo): return
 
         try:
-            if char_count > 200 and detect(texto_limpo) != 'pt':
-                return
+            if char_count > 200 and detect(texto_limpo) != 'pt': return
         except LangDetectException:
             return
 
-        # A Guilhotina: Se tiver data e for maior que 2020, morre aqui.
-        if data_pub != 'Desconhecida' and int(data_pub) > 2020:
-            # print(f"[Descartado] Posterior a 2020 ({data_pub}): {original_url}")
+        if data_pub != 'Desconhecida' and int(data_pub) > 2018:
+            print(f"[DATA RECENTE] Ano {data_pub} > 2020. Descartado: {original_url}")
             return
             
-        # Opcional: Se quiser ser 100% rigoroso e não aceitar textos sem data, 
-        # descomente a linha abaixo:
-        if data_pub == 'Desconhecida': return
-
         texto_hash = hashlib.md5(texto_limpo.encode('utf-8')).hexdigest()
-        if texto_hash in self.seen_hashes:
-            return
+        if texto_hash in self.seen_hashes: return
         self.seen_hashes.add(texto_hash)
 
-        # --- EXTRAÇÃO DO TEMA VIA URL ---
-        # Transforma "https://autores.com.br/haicai.html" em "Haicai"
+        # ── [ALTERADO] Extração do Tema pela URL do Recanto ─────────────
+        # Transforma "https://www.recantodasletras.com.br/poesias/12345" em "Poesias"
         caminho_url = urlparse(original_url).path.strip('/')
         partes = caminho_url.split('/')
         
-        # O tema geralmente é a penúltima ou antepenúltima pasta
-        if len(partes) >= 2:
-            tema_bruto = partes[-2] # Pega a pasta antes do nome do arquivo
+        if len(partes) >= 1:
+            tema_bruto = partes[0] # No Recanto a primeira pasta é a categoria
         else:
-            tema_bruto = partes[0]
+            tema_bruto = "Literatura Independente"
             
-        # Limpa o tema (remove números tipo "97-relacionamento" para "Relacionamento")
-        tema_extraido = re.sub(r'^\d+-', '', tema_bruto).replace('-', ' ').title()
-        tema_extraido = tema_extraido.replace('.Html', '')
-        
-        # Se a URL for vazia ou estranha, coloca um padrão
-        if not tema_extraido or len(tema_extraido) < 3:
-            tema_extraido = "Literatura Independente"
+        tema_extraido = tema_bruto.replace('-', ' ').title()
 
         await self.save_record({
             "text_id":        str(uuid.uuid4()),
             "content":        texto_limpo,
             "label":          0,
             "broad_area":     "Literária",
-            "specific_theme": tema_extraido, # <--- Injetando o tema capturado!
+            "specific_theme": tema_extraido,
             "char_count":     char_count,
             "word_count":     len(texto_limpo.split()),
             "size_category":  categoria,
             "creation_date":  data_pub,
             "source_url":     original_url,
-            "source_name":    "autores.com.br",
+            "source_name":    "recantodasletras.com.br", # [ALTERADO]
             "content_hash":   texto_hash,
         })
         print(f"[Salvo] {tema_extraido} | {data_pub} | {char_count} chars")
@@ -397,13 +363,23 @@ class LiveScraperPipeline:
 
         try:
             async with aiohttp.ClientSession() as session:
+                
+                # [NOVO] Executa a verificação ética (Content-Signals) antes de iniciar
+                for domain in self.target_domains:
+                    permitido = await self.verify_ai_content_signals(session, domain)
+                    if not permitido:
+                        print(f"Encerrando pipeline para proteger diretrizes de IA do domínio {domain}.")
+                        return
+
                 print("Fase 1: Discovery via Sitemaps (100% do Site)...")
-                domain_tasks = [self.discovery_autores_profundo(session, d) for d in self.target_domains]
-                resultados = await asyncio.gather(*domain_tasks)
+                # [ALTERADO] Usando a função adaptada para o Recanto
+                #domain_tasks = [self.discovery_recanto_profundo(session, d) for d in self.target_domains]
+                #resultados = await asyncio.gather(*domain_tasks)
 
                 all_links = []
-                for links in resultados:
-                    all_links.extend(links)
+                for domain in self.target_domains:
+                    links_diretos = await self.get_all_sitemap_links(session, domain)
+                    all_links.extend(links_diretos)
 
                 print(f"Discovery concluído. Total: {len(all_links)} artigos encontrados.")
 
@@ -413,26 +389,27 @@ class LiveScraperPipeline:
                     print(f"[Modo Teste] Limitando a {max_test_urls} URLs.")
 
                 print(f"\nFase 2: Processando links em lotes...")
-                batch_size = 50 # Menor para não derrubar sites ao vivo
+                batch_size = 50 
                 for i in range(0, len(all_links), batch_size):
                     if self.tempo_esgotado(): break
 
                     batch = all_links[i:i + batch_size]
                     await asyncio.gather(*[self.fetch_and_process_live(session, s) for s in batch])
-                    await asyncio.sleep(1) # Respiro para o servidor ao vivo
+                    await asyncio.sleep(1) 
 
         finally:
             await self.close_db()
 
         elapsed = time.monotonic() - self.start_time
-        print(f"\n[Finalizado] {len(self.seen_hashes)} textos únicos em {elapsed/60:.1f} minutos.")
+        print(f"\n[Finalizado] {len(self.seen_hashes)} textos únicos no banco em {elapsed/60:.1f} minutos.")
 
 if __name__ == "__main__":
+    # [ALTERADO] Domínio alvo modificado
     dominios = [
-        "autores.com.br"
+        "www.recantodasletras.com.br"
     ]
 
     pipeline = LiveScraperPipeline(target_domains=dominios, max_concurrent_requests=200)
     
-    # Coloque max_test_urls=10 para um teste rápido, ou deixe None para baixar TUDO
-    asyncio.run(pipeline.run())
+    # Deixe sem argumentos para baixar tudo
+    asyncio.run(pipeline.run(max_test_urls=100))

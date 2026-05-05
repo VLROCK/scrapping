@@ -16,7 +16,7 @@ SCHEMA_PATH = os.path.join(BASE_DIR, "schema.sql")
 LANG_MODEL_PATH = os.path.join(BASE_DIR, "models", "lid.176.ftz")
 
 # Endpoint de metadados leve — usado para pré-filtro de idioma e área
-API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2017-07-01"
+API_DISCOVERY_URL = "http://articlemeta.scielo.org/api/v1/article/identifiers/?collection=scl&limit={limit}&offset={offset}&from=2016-08-01"
 API_META_URL      = "http://articlemeta.scielo.org/api/v1/article/?collection=scl&code={pid}&format=json"
 API_HTML_URL      = "https://www.scielo.br/article/{pid}/?lang=pt"
 
@@ -215,6 +215,9 @@ async def extrair_artigo(
     texto_lower = texto.lower()
     if "texto disponível apenas em pdf" in texto_lower or "texto completo dispon" in texto_lower:
         print(f"[{pid}] Descartado: Página fantasma (Apenas PDF disponível).")
+        return False
+    
+    if meta['area'] == "Health Sciences" or meta['area'] == "Human Sciences" or meta['area'] == "Engineering" or meta['area'] == "Agricultural Sciences" or meta['area'] == "Applied Social Sciences":
         return False
     
     texto = re.sub(

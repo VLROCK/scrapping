@@ -127,7 +127,7 @@ class WaybackScraperPipeline:
             "fl":     "timestamp,original,statuscode,mimetype",
             "filter": ["statuscode:200", "mimetype:text/html"],
             "collapse": "urlkey",
-            "limit":  "120",  # 8 × 4 trimestres × 12 anos = 384 por domínio
+            "limit":  "140",  # 8 × 4 trimestres × 12 anos = 384 por domínio
         }
 
         async with self.cdx_semaphore:
@@ -164,8 +164,8 @@ class WaybackScraperPipeline:
         Antes: sequencial com sleep = ~30min. Agora: ~1-2min.
         """
         #trimestres = [("01", "03"), ("04", "06"), ("07", "09"), ("10", "12")]
-        trimestres = [("02", "03"), ("05", "06"), ("08", "09"), ("11", "12")]
-        #trimestres = [("03", "03"), ("06", "06"), ("09", "09"), ("12", "12")]
+        #trimestres = [("02", "03"), ("05", "06"), ("08", "09"), ("11", "12")]
+        trimestres = [("03", "03"), ("06", "06"), ("09", "09"), ("12", "12")]
 
         tasks = [
             self.get_cdx_snapshots_trimestre(session, domain, ano, m_ini, m_fim)

@@ -1,5 +1,7 @@
 data/raw_data
-.github/workflows/informacional_scrap.yml
-.github/workflows/jornal_scrap.yml
+#.github/workflows/informacional_scrap.yml
+#.github/workflows/jornal_scrap.yml
 .github/workflows/web_livro.yml
 .github/workflows/artigo_scrap.yml
+data/dataset_artigo.db
+*.db
