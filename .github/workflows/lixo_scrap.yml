@@ -2,7 +2,7 @@ name: Web Scraping Pipeline Lixo
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # TODO DIA às 09:00 UTC
+    - cron: '0 13 * * *'  # TODO DIA às 09:00 UTC
   workflow_dispatch:      # botão manual
 
 permissions:
