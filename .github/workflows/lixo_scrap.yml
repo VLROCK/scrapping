@@ -2,7 +2,7 @@ name: Web Scraping Pipeline Lixo
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # TODO DIA às 09:00 UTC
+    - cron: '0 16  * * *'  # TODO DIA às 09:00 UTC
   workflow_dispatch:      # botão manual
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Rodar scraper e logs
         run: |
-          python lixo_scrap.py | tee log.txt
+          python lixo/lixo_scrap.py | tee log.txt
 
       - name: Commit automático do banco
         run: |
