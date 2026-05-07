@@ -20,7 +20,7 @@ DetectorFactory.seed = 0
 
 # Você pode salvar no mesmo banco de lixo anterior para acumular, 
 # ou criar um específico. Vamos usar um nome genérico para o lixo.
-DB_PATH = "data/dataset_lixo.db"
+DB_PATH = "data/dataset_lixo2.db"
 
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/",

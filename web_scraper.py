@@ -17,7 +17,7 @@ from langdetect.lang_detect_exception import LangDetectException
 
 DetectorFactory.seed = 0
 
-DB_PATH = "data/dataset.db"
+DB_PATH = "data/dataset_jornal_balanceado2.db"
 
 BLOCKED_URL_PATTERNS = [
     "/ao-vivo", "/index", "/categoria", "/tag/",
